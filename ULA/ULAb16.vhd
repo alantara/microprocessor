@@ -6,7 +6,8 @@ entity ULAb16 is
 	port(
 		a, b: in unsigned(15 downto 0);
 		sel0, sel1, sel2: in std_logic;
-		output: out unsigned(15 downto 0)
+		output: out unsigned(15 downto 0);
+		zero: out std_logic
 	    );
 end entity;
 
@@ -51,7 +52,7 @@ component logicb16 is
 end component;
 
 
-signal add, sub, left, right, mult, a_not, a_and_b, a_or_b: unsigned(15 downto 0);
+signal add, sub, left, right, mult, a_not, a_and_b, a_or_b, outputs: unsigned(15 downto 0);
 
 begin
 	adder: adderb16 port map(
@@ -93,7 +94,11 @@ begin
 				sel0=>sel0,
 				sel1=>sel1,
 				sel2=>sel2,
-				output=>output
+				output=>outputs
 			    );
+
+	zero <= '1' when outputs = 0 else
+		'0';
+	output <= outputs;
 
 end architecture;
