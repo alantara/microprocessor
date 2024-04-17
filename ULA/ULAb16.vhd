@@ -43,8 +43,15 @@ component umultb16 is
 	    );
 end component;
 
+component logicb16 is
+	port(
+		a, b: in unsigned(15 downto 0);
+		output_not, output_and, output_or: out unsigned(15 downto 0)
+	    );
+end component;
 
-signal add, sub, left, right, mult: unsigned(15 downto 0);
+
+signal add, sub, left, right, mult, a_not, a_and_b, a_or_b: unsigned(15 downto 0);
 
 begin
 	adder: adderb16 port map(
@@ -66,15 +73,23 @@ begin
 			       );
 
 
+	logic: logicb16 port map(
+					a=>a,
+					b=>b,
+					output_not=>a_not,
+					output_and=>a_and_b,
+					output_or=>a_or_b
+				);
+
 	mux: mux8x1b16 port map(
 			    	entr0=>add,
 				entr1=>sub,
 				entr2=>left,
 				entr3=>right,
 				entr4=>mult,
-				entr5=>"0000000000000000",
-				entr6=>"0000000000000000",
-				entr7=>"0000000000000000",
+				entr5=>a_not,
+				entr6=>a_and_b,
+				entr7=>a_or_b,
 				sel0=>sel0,
 				sel1=>sel1,
 				sel2=>sel2,
