@@ -9,7 +9,8 @@ entity microprocessor is
   sel_imm: in std_logic;
   immediate: in unsigned(15 downto 0);
   clk, rst, wr_en: in std_logic;
-  ula_zero: out std_logic
+  ula_zero: out std_logic;
+  deb_ula: out unsigned(15 downto 0)
 );  
 end entity;
 
@@ -58,12 +59,12 @@ begin
                               output_b=>output_reg_b
                             );
 
-  ula: ULA port map(
+  ula2: ULA port map(
                      a=>output_reg_a,
                      b=>output_mux_ula,
                      sel=>ula_sel,
                      zero=>ula_zero,
-                     output=>output_ula,
+                     output=>output_ula
                    );
 
   m: mux2x1b16 port map(
@@ -72,4 +73,6 @@ begin
                          sel=>sel_imm,
                          output=>output_mux_ula
                          );
+
+  deb_ula <= output_mux_ula;
 end architecture;
