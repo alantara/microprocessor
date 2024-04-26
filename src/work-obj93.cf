@@ -1,0 +1,19 @@
+v 4
+file . "DATAREGISTER.vhd" "027deddacc0b9baf44117f644a4ba3b29c014718" "20240426020432.743":
+  entity dataregister at 1( 0) + 0 on 19;
+  architecture a_dataregister of dataregister at 15( 312) + 0 on 20;
+file . "components/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240426015501.397":
+  entity regb16 at 1( 0) + 0 on 15;
+  architecture a_regb16 of regb16 at 13( 213) + 0 on 16;
+file . "components/demux8x1b1.vhd" "668b07d5bc998b2ebb74908f2f9b00a2249f314c" "20240426015452.522":
+  entity demux8x1b1 at 1( 0) + 0 on 11;
+  architecture a_demux8x1b1 of demux8x1b1 at 12( 235) + 0 on 12;
+file . "components/mux8x1b16.vhd" "eb797cb79d5152dd3a847f5a44852b11ed4c54b5" "20240426015458.322":
+  entity mux8x1b16 at 1( 0) + 0 on 13;
+  architecture a_mux8x1b16 of mux8x1b16 at 13( 242) + 0 on 14;
+file . "ULA.vhd" "a0f268f967cef7d66c317daaff00043c7f31b60b" "20240426015536.612":
+  entity ula at 1( 0) + 0 on 17;
+  architecture a_ula of ula at 14( 233) + 0 on 18;
+file . "tb.vhd" "f3b3dcc405ff3c77ba5189865c60fea9c17bbb07" "20240426020827.669":
+  entity tb at 1( 0) + 0 on 23;
+  architecture a_tb of tb at 8( 98) + 0 on 24;
