@@ -1,25 +1,25 @@
 v 4
-file . "tb.vhd" "12309d64746d7f1ea0a3e986b408423f9bf20857" "20240426212247.290":
-  entity tb at 1( 0) + 0 on 145;
-  architecture a_tb of tb at 8( 98) + 0 on 146;
-file . "ULA.vhd" "a0f268f967cef7d66c317daaff00043c7f31b60b" "20240426212247.273":
-  entity ula at 1( 0) + 0 on 141;
-  architecture a_ula of ula at 14( 233) + 0 on 142;
-file . "components/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240426212247.256":
-  entity regb16 at 1( 0) + 0 on 137;
-  architecture a_regb16 of regb16 at 13( 213) + 0 on 138;
-file . "components/mux2x1b16.vhd" "77c915f04f51b6cb6a75cd86a2f7c0586204bff4" "20240426212247.239":
-  entity mux2x1b16 at 1( 0) + 0 on 133;
-  architecture a_mux2x1b16 of mux2x1b16 at 13( 207) + 0 on 134;
-file . "components/mux8x1b16.vhd" "eb797cb79d5152dd3a847f5a44852b11ed4c54b5" "20240426212247.247":
-  entity mux8x1b16 at 1( 0) + 0 on 135;
-  architecture a_mux8x1b16 of mux8x1b16 at 13( 242) + 0 on 136;
-file . "components/demux8x1b1.vhd" "668b07d5bc998b2ebb74908f2f9b00a2249f314c" "20240426212247.222":
-  entity demux8x1b1 at 1( 0) + 0 on 131;
-  architecture a_demux8x1b1 of demux8x1b1 at 12( 235) + 0 on 132;
-file . "DATAREGISTER.vhd" "027deddacc0b9baf44117f644a4ba3b29c014718" "20240426212247.264":
-  entity dataregister at 1( 0) + 0 on 139;
-  architecture a_dataregister of dataregister at 15( 312) + 0 on 140;
-file . "microprocessor.vhd" "58ffc68ec5841b9f9a4735a84e76b68f6ef02b4f" "20240426212247.281":
-  entity microprocessor at 1( 0) + 0 on 143;
-  architecture a_microprocessor of microprocessor at 17( 379) + 0 on 144;
+file . "tb.vhd" "33160972832da3c622892b3a3150e87553fc5ac8" "20240426214132.694":
+  entity tb at 1( 0) + 0 on 193;
+  architecture a_tb of tb at 8( 98) + 0 on 194;
+file . "ULA.vhd" "a0f268f967cef7d66c317daaff00043c7f31b60b" "20240426214132.683":
+  entity ula at 1( 0) + 0 on 189;
+  architecture a_ula of ula at 14( 233) + 0 on 190;
+file . "components/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240426214132.672":
+  entity regb16 at 1( 0) + 0 on 185;
+  architecture a_regb16 of regb16 at 13( 213) + 0 on 186;
+file . "components/mux2x1b16.vhd" "77c915f04f51b6cb6a75cd86a2f7c0586204bff4" "20240426214132.660":
+  entity mux2x1b16 at 1( 0) + 0 on 181;
+  architecture a_mux2x1b16 of mux2x1b16 at 13( 207) + 0 on 182;
+file . "components/mux8x1b16.vhd" "eb797cb79d5152dd3a847f5a44852b11ed4c54b5" "20240426214132.665":
+  entity mux8x1b16 at 1( 0) + 0 on 183;
+  architecture a_mux8x1b16 of mux8x1b16 at 13( 242) + 0 on 184;
+file . "components/demux8x1b1.vhd" "668b07d5bc998b2ebb74908f2f9b00a2249f314c" "20240426214132.654":
+  entity demux8x1b1 at 1( 0) + 0 on 179;
+  architecture a_demux8x1b1 of demux8x1b1 at 12( 235) + 0 on 180;
+file . "DATAREGISTER.vhd" "027deddacc0b9baf44117f644a4ba3b29c014718" "20240426214132.678":
+  entity dataregister at 1( 0) + 0 on 187;
+  architecture a_dataregister of dataregister at 15( 312) + 0 on 188;
+file . "microprocessor.vhd" "7c4d9b4f279877e8c8f7660beac46ee32803da0f" "20240426214132.689":
+  entity microprocessor at 1( 0) + 0 on 191;
+  architecture a_microprocessor of microprocessor at 17( 379) + 0 on 192;

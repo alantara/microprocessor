@@ -44,7 +44,7 @@ architecture a_microprocessor of microprocessor is
   end component;
 
   signal output_ula, output_reg_a, output_reg_b, output_mux_ula: unsigned(15 downto 0);
-  
+
 begin
 
   data_register: DATAREGISTER port map(
@@ -74,5 +74,5 @@ begin
                          output=>output_mux_ula
                          );
 
-  deb_ula <= output_mux_ula;
+  deb_ula <= output_ula;
 end architecture;
