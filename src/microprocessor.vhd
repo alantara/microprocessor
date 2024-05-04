@@ -14,9 +14,9 @@ entity microprocessor is
 );  
 end entity;
 
-architecture a_microprocessor of microprocessor is
+architecture arq of microprocessor is
 
-  component DATAREGISTER is
+  component dataregister is
     port(
     sel_a, sel_b: in unsigned(2 downto 0);
     data_wr: in unsigned(15 downto 0);
@@ -26,10 +26,10 @@ architecture a_microprocessor of microprocessor is
   );
   end component;
 
-  component ULA is
+  component ula is
     port(
     a, b: in unsigned(15 downto 0);
-    sel: in unsigned(2 downto 0);
+    opcode: in unsigned(2 downto 0);
     zero: out std_logic;
     output: out unsigned(15 downto 0)
   );
@@ -62,7 +62,7 @@ begin
   ula2: ULA port map(
                      a=>output_reg_a,
                      b=>output_mux_ula,
-                     sel=>ula_sel,
+                     opcode=>ula_sel,
                      zero=>ula_zero,
                      output=>output_ula
                    );

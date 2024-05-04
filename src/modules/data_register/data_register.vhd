@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity DATAREGISTER is
+entity data_register is
   port(
   sel_a, sel_b: in unsigned(2 downto 0);
   data_wr: in unsigned(15 downto 0);
@@ -12,7 +12,7 @@ entity DATAREGISTER is
 );
 end entity;
 
-architecture a_DATAREGISTER of DATAREGISTER is
+architecture arq of data_register is
 
   component regb16 is
     port(

@@ -5,8 +5,9 @@ ghdl -a components/mux2x1b16.vhd
 ghdl -a components/mux8x1b16.vhd
 ghdl -a components/regb16.vhd
 
-ghdl -a DATAREGISTER.vhd
-ghdl -a ULA.vhd
+ghdl -a modules/data_register/data_register.vhd
+ghdl -a modules/rom/rom.vhd
+ghdl -a modules/ula/ula.vhd
 ghdl -a microprocessor.vhd
 ghdl -a tb.vhd
 
@@ -15,8 +16,9 @@ ghdl -e mux2x1b16
 ghdl -e mux8x1b16
 ghdl -e regb16
 
-ghdl -e DATAREGISTER
-ghdl -e ULA
+ghdl -e data_register
+ghdl -e rom
+ghdl -e ula
 ghdl -e microprocessor
 ghdl -e tb
 

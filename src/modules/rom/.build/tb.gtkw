@@ -1,0 +1,26 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Sat May  4 00:45:33 2024
+[*]
+[dumpfile] "/home/henrique/utfpr/arqcomp/microprocessor/src/modules/rom/.build/tb.ghw"
+[dumpfile_mtime] "Sat May  4 00:44:47 2024"
+[dumpfile_size] 1353
+[savefile] "/home/henrique/utfpr/arqcomp/microprocessor/src/modules/rom/.build/tb.gtkw"
+[timestart] 0
+[size] 1916 1041
+[pos] -641 -1
+*-27.230597 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb.
+[sst_width] 214
+[signals_width] 126
+[sst_expanded] 1
+[sst_vpaned_height] 307
+@28
+top.tb.clk
+@22
+#{top.tb.data[11:0]} top.tb.data[11] top.tb.data[10] top.tb.data[9] top.tb.data[8] top.tb.data[7] top.tb.data[6] top.tb.data[5] top.tb.data[4] top.tb.data[3] top.tb.data[2] top.tb.data[1] top.tb.data[0]
+@23
+#{top.tb.address[7:0]} top.tb.address[7] top.tb.address[6] top.tb.address[5] top.tb.address[4] top.tb.address[3] top.tb.address[2] top.tb.address[1] top.tb.address[0]
+[pattern_trace] 1
+[pattern_trace] 0
