@@ -35,14 +35,6 @@ architecture arq of microprocessor is
   );
   end component;
 
-  component mux2x1b16 is
-    port(
-    m0, m1: in unsigned(15 downto 0);
-    sel: in std_logic;
-    output: out unsigned(15 downto 0)
-  );
-  end component;
-
   signal output_ula, output_reg_a, output_reg_b, output_mux_ula: unsigned(15 downto 0);
 
 begin
@@ -67,12 +59,9 @@ begin
                      output=>output_ula
                    );
 
-  m: mux2x1b16 port map(
-                         m0=>output_reg_b,
-                         m1=>immediate,
-                         sel=>sel_imm,
-                         output=>output_mux_ula
-                         );
+  output_mux_ula <= output_reg_b when sel_imm = '0' else
+                    immediate when sel_imm = '1' else
+                    output_reg_b;
 
   deb_ula <= output_ula;
 end architecture;
