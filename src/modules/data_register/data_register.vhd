@@ -23,25 +23,33 @@ architecture arq of data_register is
   end component;
 
   signal d0, d1, d2, d3, d4, d5, d6, d7: unsigned(15 downto 0);
+  signal sel_wr_en1, sel_wr_en2, sel_wr_en3, sel_wr_en4, sel_wr_en5, sel_wr_en6, sel_wr_en7: std_logic;
   signal wr_en1, wr_en2, wr_en3, wr_en4, wr_en5, wr_en6, wr_en7: std_logic;
 
 begin
 
-  wr_en1<= '1' when sel_wr = "001" and wr_en else
-           '0';
-  wr_en2<= '1' when sel_wr = "010" and wr_en else
-           '0';
-  wr_en3<= '1' when sel_wr = "011" and wr_en else
-           '0';
-  wr_en4<= '1' when sel_wr = "100" and wr_en else
-           '0';
-  wr_en5<= '1' when sel_wr = "101" and wr_en else
-           '0';
-  wr_en6<= '1' when sel_wr = "110" and wr_en else
-           '0';
-  wr_en7<= '1' when sel_wr = "111" and wr_en else
-           '0';
+  sel_wr_en1<= '1' when sel_wr = "001" else
+               '0';
+  sel_wr_en2<= '1' when sel_wr = "010" else
+               '0';
+  sel_wr_en3<= '1' when sel_wr = "011" else
+               '0';
+  sel_wr_en4<= '1' when sel_wr = "100" else
+               '0';
+  sel_wr_en5<= '1' when sel_wr = "101" else
+               '0';
+  sel_wr_en6<= '1' when sel_wr = "110" else
+               '0';
+  sel_wr_en7<= '1' when sel_wr = "111" else
+               '0';
   
+  wr_en1<= sel_wr_en1 and wr_en;
+  wr_en2<= sel_wr_en2 and wr_en;
+  wr_en3<= sel_wr_en3 and wr_en;
+  wr_en4<= sel_wr_en4 and wr_en;
+  wr_en5<= sel_wr_en5 and wr_en;
+  wr_en6<= sel_wr_en6 and wr_en;
+  wr_en7<= sel_wr_en7 and wr_en;
 
   reg0: regb16 port map(clk=>'0', rst=>'1', wr_en=>'0', d_in=>"0000000000000000", d_out=>d0);
   reg1: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en1, d_in=>data_wr, d_out=>d1);
@@ -51,7 +59,7 @@ begin
   reg5: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en5, d_in=>data_wr, d_out=>d5);
   reg6: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en6, d_in=>data_wr, d_out=>d6);
   reg7: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en7, d_in=>data_wr, d_out=>d7);
-  
+    
 
   output_a <= d0 when sel_a = "000" else
               d1 when sel_a = "001" else

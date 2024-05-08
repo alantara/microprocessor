@@ -11,20 +11,35 @@ architecture arq of tb is
 
 -- DECLARAR COMPONENTS E SIGNALS AQUI
 
+  signal wr_en: std_logic := '0';
+  signal d_in: unsigned(15 downto 0) := "0000000000000000";
+  signal d_out: unsigned(15 downto 0) := "0000000000000000";
+
+
+  component regb16 is
+    port(
+    clk, rst, wr_en: in std_logic;
+    d_in: in unsigned(15 downto 0);
+    d_out: out unsigned(15 downto 0)
+  );
+  end component;
 
 
 begin
 
   -- INSTANCIAR COMPONENTE AQUI
 
-
+  uut: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en, d_in=>d_in, d_out=>d_out);
 
   process
   begin
     wait for period_time;
 
     -- COLOCAR CASOS DE TESTE AQUI
-
+    
+    wr_en<='1'; d_in<="0010100011001111"; wait for period_time;
+    wr_en<='1'; d_in<="0010111011001111"; wait for period_time;
+    wr_en<='1'; d_in<="1010110011001111"; wait for period_time;
 
     wait;
   end process;
