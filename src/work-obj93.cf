@@ -1,28 +1,34 @@
 v 4
-file . "components/tff.vhd" "7b44aaba5fa22759ced7d6cb0ff5f4c31221d810" "20240508170610.829":
-  entity tff at 1( 0) + 0 on 263;
-  architecture arq of tff at 10( 152) + 0 on 264;
-file . "microprocessor.vhd" "6123e75898ef3589b2971ee315ab9aaafdb5653f" "20240508170610.869":
-  entity microprocessor at 1( 0) + 0 on 269;
-  architecture arq of microprocessor at 17( 379) + 0 on 270;
-file . "modules/rom/rom.vhd" "2ca1bdf261983ed2e329131e919ab044709cd5d0" "20240508170610.849":
-  entity rom at 1( 0) + 0 on 265;
-  architecture a_rom of rom at 12( 228) + 0 on 266;
-file . "components/mux8x1b16.vhd" "eb797cb79d5152dd3a847f5a44852b11ed4c54b5" "20240508170610.811":
-  entity mux8x1b16 at 1( 0) + 0 on 259;
-  architecture a_mux8x1b16 of mux8x1b16 at 13( 242) + 0 on 260;
-file . "components/demux8x1b1.vhd" "668b07d5bc998b2ebb74908f2f9b00a2249f314c" "20240508170610.793":
-  entity demux8x1b1 at 1( 0) + 0 on 255;
-  architecture a_demux8x1b1 of demux8x1b1 at 12( 235) + 0 on 256;
-file . "components/mux2x1b16.vhd" "77c915f04f51b6cb6a75cd86a2f7c0586204bff4" "20240508170610.801":
-  entity mux2x1b16 at 1( 0) + 0 on 257;
-  architecture a_mux2x1b16 of mux2x1b16 at 13( 207) + 0 on 258;
-file . "components/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240508170610.820":
-  entity regb16 at 1( 0) + 0 on 261;
-  architecture a_regb16 of regb16 at 13( 213) + 0 on 262;
-file . "modules/ula/ula.vhd" "0e0322484a42377b6aadd465ea3216bef6bd6628" "20240508170610.859":
-  entity ula at 1( 0) + 0 on 267;
-  architecture arq of ula at 14( 236) + 0 on 268;
-file . "tb.vhd" "12b950de6b0beccc2040af1eeb03a375aa2e98dd" "20240508170610.879":
-  entity tb at 1( 0) + 0 on 271;
-  architecture a_tb of tb at 8( 98) + 0 on 272;
+file . "tb.vhd" "63b442cfe05a5b8bfd5dd0870437e3fc3fde8750" "20240508192647.513":
+  entity tb at 1( 0) + 0 on 31;
+  architecture a_tb of tb at 8( 98) + 0 on 32;
+file . "modules/ula/ula.vhd" "6926aa9d4979c586af59d0088dd45f3edd0db5f0" "20240508192647.480":
+  entity ula at 1( 0) + 0 on 27;
+  architecture arq of ula at 14( 236) + 0 on 28;
+file . "modules/control_unit/control_unit.vhd" "26771df73574cc71e790323eea1b0fd7c154f49d" "20240508192647.444":
+  entity control_unit at 1( 0) + 0 on 23;
+  architecture arq of control_unit at 11( 203) + 0 on 24;
+file . "modules/plus_one/plus_one.vhd" "9d7a28d9f0ef2813c8265ab134d03eb15fc19c74" "20240508192647.407":
+  entity plus_one at 1( 0) + 0 on 19;
+  architecture a_plus_one of plus_one at 12( 186) + 0 on 20;
+file . "modules/state_machine/state_machine.vhd" "e9c810d48381fd562118e60f96e9c092edb68d5b" "20240508192647.373":
+  entity state_machine at 1( 0) + 0 on 15;
+  architecture arq of state_machine at 10( 163) + 0 on 16;
+file . "components/tff.vhd" "7b44aaba5fa22759ced7d6cb0ff5f4c31221d810" "20240508192647.338":
+  entity tff at 1( 0) + 0 on 11;
+  architecture arq of tff at 10( 152) + 0 on 12;
+file . "components/regb16/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240508192647.356":
+  entity regb16 at 1( 0) + 0 on 13;
+  architecture a_regb16 of regb16 at 13( 213) + 0 on 14;
+file . "modules/pc/pc.vhd" "c61a0d44ff520aed7f93664f3478f5f6848e3652" "20240508192647.390":
+  entity pc at 1( 0) + 0 on 17;
+  architecture arq of pc at 13( 214) + 0 on 18;
+file . "modules/data_register/data_register.vhd" "7cdb80b5e071a82524860ef307cafc9a01513091" "20240508192647.427":
+  entity data_register at 1( 0) + 0 on 21;
+  architecture arq of data_register at 15( 313) + 0 on 22;
+file . "modules/rom/rom.vhd" "ce3576732d534d9a8b03715f14f8dfa64c471d2a" "20240508192647.462":
+  entity rom at 1( 0) + 0 on 25;
+  architecture a_rom of rom at 12( 228) + 0 on 26;
+file . "microprocessor.vhd" "a874b87fb18e7ebc3438d4b63f56b63116e2bdcb" "20240508192647.498":
+  entity microprocessor at 1( 0) + 0 on 29;
+  architecture arq of microprocessor at 12( 184) + 0 on 30;

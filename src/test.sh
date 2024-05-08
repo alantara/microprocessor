@@ -1,5 +1,7 @@
 #!/bin/bash
 
+bash build.sh
+
 ghdl -r tb --wave=tb.ghw
 mkdir -p .build/
 mv tb.ghw .build/
