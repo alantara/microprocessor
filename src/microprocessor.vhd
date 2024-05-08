@@ -34,30 +34,41 @@ architecture arq of microprocessor is
     output: out unsigned(15 downto 0)
   );
   end component;
+  component rom is
+    port(clk : in std_logic;
+         address : in unsigned(7 downto 0);
+         data : out unsigned(31 downto 0) 
+       );
+  end component;
+
+  component state_machine is 
+    port(clk, rst : in std_logic;
+         state : out std_logic);
+  end component;
 
   signal output_ula, output_reg_a, output_reg_b, output_mux_ula: unsigned(15 downto 0);
 
 begin
 
   data_reg: data_register port map(
-                              sel_a=>reg_sel_a,
-                              sel_b=>reg_sel_b,
-                              data_wr=>output_ula,
-                              sel_wr=>reg_sel_wr,
-                              clk=>clk,
-                              rst=>rst,
-                              wr_en=>wr_en,
-                              output_a=>output_reg_a,
-                              output_b=>output_reg_b
-                            );
+                                    sel_a=>reg_sel_a,
+                                    sel_b=>reg_sel_b,
+                                    data_wr=>output_ula,
+                                    sel_wr=>reg_sel_wr,
+                                    clk=>clk,
+                                    rst=>rst,
+                                    wr_en=>wr_en,
+                                    output_a=>output_reg_a,
+                                    output_b=>output_reg_b
+                                  );
 
   ula2: ula port map(
-                     a=>output_reg_a,
-                     b=>output_mux_ula,
-                     opcode=>ula_sel,
-                     zero=>ula_zero,
-                     output=>output_ula
-                   );
+                      a=>output_reg_a,
+                      b=>output_mux_ula,
+                      opcode=>ula_sel,
+                      zero=>ula_zero,
+                      output=>output_ula
+                    );
 
   output_mux_ula <= output_reg_b when sel_imm = '0' else
                     immediate when sel_imm = '1' else
