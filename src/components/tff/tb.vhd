@@ -11,26 +11,29 @@ architecture arq of tb is
 
 -- DECLARAR COMPONENTS E SIGNALS AQUI
 
+  signal data: std_logic := '0';
 
-  component microprocessor is
+
+  component tff is 
     port(
-    clk, rst: in std_logic
-  );  
+    clk, rst : in std_logic;
+    data : out std_logic
+  );
   end component;
+
 
 begin
 
   -- INSTANCIAR COMPONENTE AQUI
 
-  
-  uut: microprocessor port map(clk=>clk, rst=>rst);
+  uut: tff port map(clk=> clk, rst=>rst, data=>data);
 
   process
   begin
     wait for period_time;
 
     -- COLOCAR CASOS DE TESTE AQUI
-
+    
 
     wait;
   end process;

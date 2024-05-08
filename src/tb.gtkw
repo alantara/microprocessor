@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed May  8 23:19:09 2024
+[*]
+[dumpfile] "/home/alan/Github/microprocessor/src/tb.ghw"
+[dumpfile_mtime] "Wed May  8 23:18:34 2024"
+[dumpfile_size] 3187
+[savefile] "/home/alan/Github/microprocessor/src/tb.gtkw"
+[timestart] 0
+[size] 1920 1016
+[pos] -101 -101
+*-29.333286 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb.
+[treeopen] top.tb.uut.
+[treeopen] top.tb.uut.mem.
+[sst_width] 233
+[signals_width] 126
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+top.tb.finished
+top.tb.rst
+top.tb.clk
+top.tb.uut.uc.jmp_en
+@22
+#{top.tb.uut.mem.address[7:0]} top.tb.uut.mem.address[7] top.tb.uut.mem.address[6] top.tb.uut.mem.address[5] top.tb.uut.mem.address[4] top.tb.uut.mem.address[3] top.tb.uut.mem.address[2] top.tb.uut.mem.address[1] top.tb.uut.mem.address[0]
+@23
+#{top.tb.uut.mem.data[31:0]} top.tb.uut.mem.data[31] top.tb.uut.mem.data[30] top.tb.uut.mem.data[29] top.tb.uut.mem.data[28] top.tb.uut.mem.data[27] top.tb.uut.mem.data[26] top.tb.uut.mem.data[25] top.tb.uut.mem.data[24] top.tb.uut.mem.data[23] top.tb.uut.mem.data[22] top.tb.uut.mem.data[21] top.tb.uut.mem.data[20] top.tb.uut.mem.data[19] top.tb.uut.mem.data[18] top.tb.uut.mem.data[17] top.tb.uut.mem.data[16] top.tb.uut.mem.data[15] top.tb.uut.mem.data[14] top.tb.uut.mem.data[13] top.tb.uut.mem.data[12] top.tb.uut.mem.data[11] top.tb.uut.mem.data[10] top.tb.uut.mem.data[9] top.tb.uut.mem.data[8] top.tb.uut.mem.data[7] top.tb.uut.mem.data[6] top.tb.uut.mem.data[5] top.tb.uut.mem.data[4] top.tb.uut.mem.data[3] top.tb.uut.mem.data[2] top.tb.uut.mem.data[1] top.tb.uut.mem.data[0]
+[pattern_trace] 1
+[pattern_trace] 0

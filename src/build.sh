@@ -2,7 +2,7 @@
 
 rm ./work-obj93.cf
 
-ghdl -a components/tff.vhd
+ghdl -a components/tff/tff.vhd
 ghdl -a components/regb16/regb16.vhd
 
 ghdl -a modules/state_machine/state_machine.vhd
@@ -28,4 +28,4 @@ ghdl -e ula
 ghdl -e microprocessor
 ghdl -e tb
 
-ghdl -r tb --wave=wave.ghw
+ghdl -r tb --wave=tb.ghw

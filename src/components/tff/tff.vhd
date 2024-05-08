@@ -3,11 +3,13 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity tff is 
-  port(clk, rst : in std_logic;
-      data : out std_logic);
-end;
+  port(
+  clk, rst : in std_logic;
+  data : out std_logic
+);
+end entity;
 
-architecture arq of tff is
+architecture a_tff of tff is
 
 signal state : std_logic := '0';
 

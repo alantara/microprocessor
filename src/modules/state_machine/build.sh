@@ -1,13 +1,11 @@
 #!/bin/bash
 
-entity=control_unit
+entity=state_machine
 
 ghdl -a ../../components/tff/tff.vhd
-ghdl -a ../state_machine/state_machine.vhd
-ghdl -a $entity.vhd
-
 ghdl -e tff
-ghdl -e state_machine
+
+ghdl -a $entity.vhd
 ghdl -e $entity
 
 ghdl -a tb.vhd
