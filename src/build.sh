@@ -4,6 +4,7 @@ ghdl -a components/demux8x1b1.vhd
 ghdl -a components/mux2x1b16.vhd
 ghdl -a components/mux8x1b16.vhd
 ghdl -a components/regb16.vhd
+ghdl -a components/tff.vhd
 
 ghdl -a modules/data_register/data_register.vhd
 ghdl -a modules/rom/rom.vhd

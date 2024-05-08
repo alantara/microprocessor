@@ -1,0 +1,24 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed May  8 16:37:01 2024
+[*]
+[dumpfile] "/home/henrique/utfpr/arqcomp/microprocessor/src/modules/state_machine/tb.ghw"
+[dumpfile_mtime] "Wed May  8 16:36:28 2024"
+[dumpfile_size] 1462
+[savefile] "/home/henrique/utfpr/arqcomp/microprocessor/src/modules/state_machine/tb.gtkw"
+[timestart] 0
+[size] 1916 1041
+[pos] -1281 -1
+*-29.273321 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb.
+[sst_width] 214
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 307
+@28
+top.tb.state
+top.tb.rst
+top.tb.clk
+[pattern_trace] 1
+[pattern_trace] 0

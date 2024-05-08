@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed May  8 17:02:19 2024
+[*]
+[dumpfile] "/home/henrique/utfpr/arqcomp/microprocessor/src/modules/pc/.build/tb.ghw"
+[dumpfile_mtime] "Wed May  8 16:58:50 2024"
+[dumpfile_size] 1449
+[savefile] "/home/henrique/utfpr/arqcomp/microprocessor/src/modules/pc/.build/tb.gtkw"
+[timestart] 0
+[size] 1916 1041
+[pos] -961 -708
+*-29.325653 881000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb.
+[treeopen] top.tb.program_counter.
+[sst_width] 214
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 318
+@28
+top.tb.wr_en
+top.tb.finished
+top.tb.rst
+top.tb.clk
+@23
+#{top.tb.program_counter.data_p1[7:0]} top.tb.program_counter.data_p1[7] top.tb.program_counter.data_p1[6] top.tb.program_counter.data_p1[5] top.tb.program_counter.data_p1[4] top.tb.program_counter.data_p1[3] top.tb.program_counter.data_p1[2] top.tb.program_counter.data_p1[1] top.tb.program_counter.data_p1[0]
+@22
+#{top.tb.program_counter.data[7:0]} top.tb.program_counter.data[7] top.tb.program_counter.data[6] top.tb.program_counter.data[5] top.tb.program_counter.data[4] top.tb.program_counter.data[3] top.tb.program_counter.data[2] top.tb.program_counter.data[1] top.tb.program_counter.data[0]
+[pattern_trace] 1
+[pattern_trace] 0
