@@ -12,8 +12,8 @@ entity ula is
 end entity;
 
 architecture arq of ula is
-  signal m0, m1, m2, m3, m4, m5, m6, m7, muxr: unsigned(15 downto 0);
-  signal multr: unsigned(31 downto 0);
+  signal m0, m1, m2, m3, m4, m5, m6, m7: unsigned(15 downto 0) := "0000000000000000";
+  signal multr: unsigned(31 downto 0) := "00000000000000000000000000000000";
 begin
 
   m0<=a+b;
@@ -30,13 +30,13 @@ begin
   zero<='1' when m1="0000000000000000" else '0';
 
   output <= m0 when opcode="000" else
-             m1 when opcode="001" else
-             m2 when opcode="010" else
-             m3 when opcode="011" else
-             m4 when opcode="100" else
-             m5 when opcode="101" else
-             m6 when opcode="110" else
-             m7 when opcode="111" else
-             "0000000000000000";
+            m1 when opcode="001" else
+            m2 when opcode="010" else
+            m3 when opcode="011" else
+            m4 when opcode="100" else
+            m5 when opcode="101" else
+            m6 when opcode="110" else
+            m7 when opcode="111" else
+            "0000000000000000";
 
 end architecture;
