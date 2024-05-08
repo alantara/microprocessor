@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed May  8 18:24:15 2024
+[*]
+[dumpfile] "/home/alan/Github/microprocessor/src/modules/pc/tb.ghw"
+[dumpfile_mtime] "Wed May  8 18:23:39 2024"
+[dumpfile_size] 1370
+[savefile] "/home/alan/Github/microprocessor/src/modules/pc/tb.gtkw"
+[timestart] 0
+[size] 1920 1016
+[pos] -101 -101
+*-29.318060 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb.
+[sst_width] 233
+[signals_width] 110
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+top.tb.finished
+top.tb.rst
+@29
+top.tb.clk
+@28
+top.tb.wr_en
+@22
+#{top.tb.d_in[7:0]} top.tb.d_in[7] top.tb.d_in[6] top.tb.d_in[5] top.tb.d_in[4] top.tb.d_in[3] top.tb.d_in[2] top.tb.d_in[1] top.tb.d_in[0]
+#{top.tb.d_out[7:0]} top.tb.d_out[7] top.tb.d_out[6] top.tb.d_out[5] top.tb.d_out[4] top.tb.d_out[3] top.tb.d_out[2] top.tb.d_out[1] top.tb.d_out[0]
+[pattern_trace] 1
+[pattern_trace] 0

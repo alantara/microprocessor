@@ -4,23 +4,25 @@ use ieee.numeric_std.all;
 
 entity pc is 
   port(
-  clk, rst, wr_en : in std_logic;
-  data_in, data_out : out unsigned(7 downto 0)
+  clk, rst, wr_en: in std_logic;
+  data_in: in unsigned(7 downto 0);
+  data_out: out unsigned(7 downto 0)
 );
-end;
+end entity;
 
 architecture arq of pc is
 
-  component regb16 is
-    port(
-    clk, rst, wr_en: in std_logic;
-    d_in: in unsigned(15 downto 0);
-    d_out: out unsigned(15 downto 0)
-  );
-  end component;
+signal data : unsigned(7 downto 0) := "00000000";
 
 begin
+  process (clk, wr_en)
+  begin
+    if (rst = '1') then
+      data <= "00000000";
+    elsif (wr_en = '1' and rising_edge(clk)) then
+      data <= data_in;
+    end if;
+  end process;
 
-  reg: regb16 port map(clk, rst, wr_en, d_in=> data_in, d_out=>data_out);
-
+  data_out<= data;
 end architecture;
