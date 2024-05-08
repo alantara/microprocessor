@@ -13,12 +13,12 @@ architecture arq of tb is
   component rom is
     port( clk      : in std_logic;
           address : in unsigned(7 downto 0);
-          data     : out unsigned(11 downto 0) 
+          data     : out unsigned(31 downto 0) 
         );
   end component;
 
   signal address : unsigned(7 downto 0) := "00000000";
-  signal data : unsigned(11 downto 0) := "000000000000";
+  signal data : unsigned(31 downto 0) := "00000000000000000000000000000000";
 
 begin
   sim_time_proc: process

@@ -1,4 +1,5 @@
 v 4
+<<<<<<< HEAD
 file . "tb.vhd" "12b950de6b0beccc2040af1eeb03a375aa2e98dd" "20240508155918.257":
   entity tb at 1( 0) + 0 on 603;
   architecture a_tb of tb at 8( 98) + 0 on 604;
@@ -26,3 +27,60 @@ file . "modules/rom/rom.vhd" "408e2f17054cd14ad87d76891f428bf0d56c4080" "2024050
 file . "microprocessor.vhd" "6123e75898ef3589b2971ee315ab9aaafdb5653f" "20240508155918.248":
   entity microprocessor at 1( 0) + 0 on 601;
   architecture arq of microprocessor at 17( 379) + 0 on 602;
+||||||| parent of 95562cb (rom para 32 bits)
+file . "microprocessor.vhd" "6123e75898ef3589b2971ee315ab9aaafdb5653f" "20240507212026.322":
+  entity microprocessor at 1( 0) + 0 on 583;
+  architecture arq of microprocessor at 17( 379) + 0 on 584;
+file . "modules/rom/rom.vhd" "408e2f17054cd14ad87d76891f428bf0d56c4080" "20240507212026.308":
+  entity rom at 1( 0) + 0 on 579;
+  architecture a_rom of rom at 12( 228) + 0 on 580;
+file . "components/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240507212026.294":
+  entity regb16 at 1( 0) + 0 on 575;
+  architecture a_regb16 of regb16 at 13( 213) + 0 on 576;
+file . "components/mux2x1b16.vhd" "77c915f04f51b6cb6a75cd86a2f7c0586204bff4" "20240507212026.279":
+  entity mux2x1b16 at 1( 0) + 0 on 571;
+  architecture a_mux2x1b16 of mux2x1b16 at 13( 207) + 0 on 572;
+file . "components/demux8x1b1.vhd" "668b07d5bc998b2ebb74908f2f9b00a2249f314c" "20240507212026.272":
+  entity demux8x1b1 at 1( 0) + 0 on 569;
+  architecture a_demux8x1b1 of demux8x1b1 at 12( 235) + 0 on 570;
+file . "components/mux8x1b16.vhd" "eb797cb79d5152dd3a847f5a44852b11ed4c54b5" "20240507212026.286":
+  entity mux8x1b16 at 1( 0) + 0 on 573;
+  architecture a_mux8x1b16 of mux8x1b16 at 13( 242) + 0 on 574;
+file . "modules/data_register/data_register.vhd" "fc78d7f61a57f385dc286ae391d708ffcba5a5f8" "20240507212026.301":
+  entity data_register at 1( 0) + 0 on 577;
+  architecture arq of data_register at 15( 313) + 0 on 578;
+file . "modules/ula/ula.vhd" "0e0322484a42377b6aadd465ea3216bef6bd6628" "20240507212026.315":
+  entity ula at 1( 0) + 0 on 581;
+  architecture arq of ula at 14( 236) + 0 on 582;
+file . "tb.vhd" "12b950de6b0beccc2040af1eeb03a375aa2e98dd" "20240507212026.330":
+  entity tb at 1( 0) + 0 on 585;
+  architecture a_tb of tb at 8( 98) + 0 on 586;
+=======
+file . "microprocessor.vhd" "6123e75898ef3589b2971ee315ab9aaafdb5653f" "20240508160802.962":
+  entity microprocessor at 1( 0) + 0 on 727;
+  architecture arq of microprocessor at 17( 379) + 0 on 728;
+file . "modules/rom/rom.vhd" "2ca1bdf261983ed2e329131e919ab044709cd5d0" "20240508160802.948":
+  entity rom at 1( 0) + 0 on 723;
+  architecture a_rom of rom at 12( 228) + 0 on 724;
+file . "components/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240508160802.934":
+  entity regb16 at 1( 0) + 0 on 719;
+  architecture a_regb16 of regb16 at 13( 213) + 0 on 720;
+file . "components/mux2x1b16.vhd" "77c915f04f51b6cb6a75cd86a2f7c0586204bff4" "20240508160802.920":
+  entity mux2x1b16 at 1( 0) + 0 on 715;
+  architecture a_mux2x1b16 of mux2x1b16 at 13( 207) + 0 on 716;
+file . "components/demux8x1b1.vhd" "668b07d5bc998b2ebb74908f2f9b00a2249f314c" "20240508160802.913":
+  entity demux8x1b1 at 1( 0) + 0 on 713;
+  architecture a_demux8x1b1 of demux8x1b1 at 12( 235) + 0 on 714;
+file . "components/mux8x1b16.vhd" "eb797cb79d5152dd3a847f5a44852b11ed4c54b5" "20240508160802.927":
+  entity mux8x1b16 at 1( 0) + 0 on 717;
+  architecture a_mux8x1b16 of mux8x1b16 at 13( 242) + 0 on 718;
+file . "modules/data_register/data_register.vhd" "fc78d7f61a57f385dc286ae391d708ffcba5a5f8" "20240508160802.941":
+  entity data_register at 1( 0) + 0 on 721;
+  architecture arq of data_register at 15( 313) + 0 on 722;
+file . "modules/ula/ula.vhd" "0e0322484a42377b6aadd465ea3216bef6bd6628" "20240508160802.955":
+  entity ula at 1( 0) + 0 on 725;
+  architecture arq of ula at 14( 236) + 0 on 726;
+file . "tb.vhd" "12b950de6b0beccc2040af1eeb03a375aa2e98dd" "20240508160802.969":
+  entity tb at 1( 0) + 0 on 729;
+  architecture a_tb of tb at 8( 98) + 0 on 730;
+>>>>>>> 95562cb (rom para 32 bits)
