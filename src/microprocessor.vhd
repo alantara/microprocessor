@@ -16,7 +16,7 @@ end entity;
 
 architecture arq of microprocessor is
 
-  component dataregister is
+  component data_register is
     port(
     sel_a, sel_b: in unsigned(2 downto 0);
     data_wr: in unsigned(15 downto 0);
@@ -47,7 +47,7 @@ architecture arq of microprocessor is
 
 begin
 
-  data_register: DATAREGISTER port map(
+  data_reg: data_register port map(
                               sel_a=>reg_sel_a,
                               sel_b=>reg_sel_b,
                               data_wr=>output_ula,
@@ -59,7 +59,7 @@ begin
                               output_b=>output_reg_b
                             );
 
-  ula2: ULA port map(
+  ula2: ula port map(
                      a=>output_reg_a,
                      b=>output_mux_ula,
                      opcode=>ula_sel,
