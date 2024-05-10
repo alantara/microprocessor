@@ -15,20 +15,20 @@ architecture arq of tb is
   component rom is
     port( 
           clk: in std_logic;
-          address: in unsigned(7 downto 0);
-          data: out unsigned(31 downto 0) 
+          address: in unsigned(5 downto 0);
+          data: out unsigned(15 downto 0) 
         );
   end component;
 
-  signal address : unsigned(7 downto 0) := "00000000";
-  signal data : unsigned(31 downto 0) := "00000000000000000000000000000000";
+  signal address : unsigned(5 downto 0) := "000000";
+  signal data : unsigned(15 downto 0) := "0000000000000000";
 
 begin
 
   -- INSTANCIAR COMPONENTE AQUI
 
 
-  mem : rom port map (clk => clk, address => address, data => data);
+  mem : rom port map (clk, address, data);
 
   process
   begin
@@ -37,27 +37,27 @@ begin
     -- COLOCAR CASOS DE TESTE AQUI
 
 
-    address <= "00000000";
+    address <= "000000";
     wait for period_time;
-    address <= "00000001";
+    address <= "000001";
     wait for period_time;
-    address <= "00000010";
+    address <= "000010";
     wait for period_time;
-    address <= "00000011";
+    address <= "000011";
     wait for period_time;
-    address <= "00000100";
+    address <= "000100";
     wait for period_time;
-    address <= "00000101";
+    address <= "000101";
     wait for period_time;
-    address <= "00000110";
+    address <= "000110";
     wait for period_time;
-    address <= "00000111";
+    address <= "010100";
     wait for period_time;
-    address <= "00001000";
+    address <= "010101";
     wait for period_time;
-    address <= "00001001";
+    address <= "010110";
     wait for period_time;
-    address <= "00001010";
+    address <= "001010";
     wait for period_time;
 
     wait;

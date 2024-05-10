@@ -56,60 +56,64 @@ architecture arq of microprocessor is
     port(
     instruction: in unsigned(15 downto 0);
     clk, rst : in std_logic;
-    pc_clk, rom_clk: out std_logic;
-    jmp_en: out std_logic
+    pc_clk, rom_clk, dr_clk: out std_logic;
+    jmp_en: out std_logic;
+    ula_opcode: out unsigned(2 downto 0);
+    ula_imm: out std_logic
   );
   end component;
 
-  --PC
-  signal pc_wr_data:unsigned(5 downto 0) := "000000";
-  signal pc_address: unsigned(5 downto 0) := "000000";
+  
+  --CONTROL UNIT
+  signal pc_clk, rom_clk, dr_clk, jmp_en: std_logic := '0';
+  signal ula_opcode: unsigned(2 downto 0) := "000";
+  signal ula_imm: std_logic := '0';
 
-  --PLUS ONE
-  signal po_data_out: unsigned(5 downto 0);
+  --PC
+  signal pc_address : unsigned(5 downto 0) := "000000";
+
+  --PO
+  signal po_address : unsigned(5 downto 0) := "000000";
 
   --ROM
-  signal instruction: unsigned(15 downto 0) := "0000000000000000";
+  signal instruction : unsigned(15 downto 0) := "0000000000000000";
+  signal rd, rs1, rs2: unsigned(2 downto 0) := "000";
+  signal imm: unsigned(5 downto 0) := "000000";
+  signal ext_imm: unsigned(15 downto 0) := "0000000000000000";
+
+  --DATA REGISTER
+  signal dr_out_a, dr_out_b: unsigned(15 downto 0) := "0000000000000000";
+
+  --ULA
+  signal ula_b, ula_out: unsigned(15 downto 0) := "0000000000000000";
+  signal zero_flag: std_logic := '0';
   
-  --UC
-  signal pc_clk, rom_clk: std_logic := '0';
-  signal jmp_en: std_logic := '0';
-
-  signal immediate : unsigned(5 downto 0) := "000000";
-
-  signal output_ula, output_reg_a, output_reg_b, output_mux_ula: unsigned(15 downto 0) := "0000000000000000";
-
 begin
 
-  program_counter: pc port map(clk=>pc_clk, rst=>rst, wr_en=>'1', data_in=>pc_wr_data, data_out=>pc_address);
+  --CONTROL UNIT
+  uc: control_unit port map(instruction=>instruction, clk=>clk, rst=>rst, pc_clk=>pc_clk, rom_clk=>rom_clk, dr_clk=>dr_clk, jmp_en=>jmp_en, ula_opcode=>ula_opcode, ula_imm=>ula_imm);
 
-  pc_wr_data<=po_data_out when jmp_en='0' else instruction(15 downto 10);
+  --PC
+  program_counter: pc port map(clk=>pc_clk, rst=>rst, wr_en=>'1', data_in=>po_address, data_out=>pc_address);
 
-  po: plus_one port map(data_in=>pc_address, data_out=>po_data_out);
+  --PLUS ONE
+  po: plus_one port map(data_in=>pc_address, data_out=>po_address);
 
+  --ROM
   mem: rom port map(clk=>rom_clk, address=>pc_address, data=>instruction);
 
-  data_reg: data_register port map(
-                                    rs2=>instruction(12 downto 10),
-                                    rs1=>instruction(9 downto 7),
-                                    data_wr=>output_ula,
-                                    rd=>instruction(6 downto 4),
-                                    clk=>clk,
-                                    rst=>rst,
-                                    wr_en=>'1',
-                                    output_a=>output_reg_a,
-                                    output_b=>output_reg_b
-                                  );
+  rd<=instruction(6 downto 4);
+  rs1<=instruction(9 downto 7);
+  rs2<=instruction(12 downto 10);
+  imm<=instruction(15 downto 10);
+  ext_imm<="0000000000" & imm;
 
-  ula2: ula port map(
-                      a=>output_reg_a,
-                      b=>output_mux_ula,
-                      opcode=>"000",
-                      output=>output_ula
-                    );
+  --DATA REGISTER
+  dr: data_register port map(rs1=>rs1, rs2=>rs2, data_wr=>ula_out, rd=>rd, clk=>dr_clk, rst=>rst, wr_en=>'1', output_a=>dr_out_a, output_b=>dr_out_b);
 
-  uc: control_unit port map(instruction, clk, rst, pc_clk, rom_clk, jmp_en);
+  --ULA
+  ula_b<=dr_out_b when ula_imm='0' else ext_imm;
 
-  immediate <= instruction(15 downto 10);
+  logic: ula port map(a=>dr_out_a, b=>ula_b, opcode=>ula_opcode, zero=>zero_flag, output=>ula_out);
 
 end architecture;

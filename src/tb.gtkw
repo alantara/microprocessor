@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri May 10 18:19:24 2024
+[*] Fri May 10 22:38:18 2024
 [*]
-[dumpfile] "/home/henrique/utfpr/arqcomp/microprocessor/src/tb.ghw"
-[dumpfile_mtime] "Fri May 10 18:18:31 2024"
-[dumpfile_size] 5956
-[savefile] "/home/henrique/utfpr/arqcomp/microprocessor/src/tb.gtkw"
+[dumpfile] "/home/alan/Github/microprocessor/src/tb.ghw"
+[dumpfile_mtime] "Fri May 10 22:31:48 2024"
+[dumpfile_size] 2415
+[savefile] "/home/alan/Github/microprocessor/src/tb.gtkw"
 [timestart] 0
-[size] 1916 1041
-[pos] -1281 -1
-*-29.336159 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1920 1016
+[pos] -1 -1
+*-28.336159 23000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.tb.
 [treeopen] top.tb.uut.
@@ -18,9 +18,10 @@
 [signals_width] 126
 [sst_expanded] 1
 [sst_vpaned_height] 289
+@29
+top.tb.rst
 @28
 top.tb.clk
-top.tb.uut.uc.jmp_en
 @22
 #{top.tb.uut.mem.address[7:0]} top.tb.uut.mem.address[5] top.tb.uut.mem.address[4] top.tb.uut.mem.address[3] top.tb.uut.mem.address[2] top.tb.uut.mem.address[1] top.tb.uut.mem.address[0]
 #{top.tb.uut.mem.data[15:0]} top.tb.uut.mem.data[15] top.tb.uut.mem.data[14] top.tb.uut.mem.data[13] top.tb.uut.mem.data[12] top.tb.uut.mem.data[11] top.tb.uut.mem.data[10] top.tb.uut.mem.data[9] top.tb.uut.mem.data[8] top.tb.uut.mem.data[7] top.tb.uut.mem.data[6] top.tb.uut.mem.data[5] top.tb.uut.mem.data[4] top.tb.uut.mem.data[3] top.tb.uut.mem.data[2] top.tb.uut.mem.data[1] top.tb.uut.mem.data[0]

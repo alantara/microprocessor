@@ -1,4 +1,3 @@
-
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -12,13 +11,13 @@ architecture arq of tb is
 
 -- DECLARAR COMPONENTS E SIGNALS AQUI
 
-  signal state : std_logic;
+  signal state : unsigned(1 downto 0);
 
 
   component state_machine is 
     port(
     clk, rst : in std_logic;
-    state : out std_logic
+    state : out unsigned(1 downto 0)
   );
   end component;
 

@@ -40,7 +40,7 @@ begin
     wr_en<='1'; d_in<="0010100011001111"; wait for period_time;
     wr_en<='1'; d_in<="0010111011001111"; wait for period_time;
     wr_en<='1'; d_in<="1010110011001111"; wait for period_time;
-
+    
     wait;
   end process;
 
@@ -68,6 +68,8 @@ begin
     rst<='1';
     wait for period_time;
     rst<='0';
+    wait for period_time * 4;
+    rst<='1';
     wait;
   end process;
 end architecture;

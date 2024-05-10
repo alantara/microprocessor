@@ -23,7 +23,7 @@ begin
   -- INSTANCIAR COMPONENTE AQUI
 
   
-  uut: microprocessor port map(clk=>clk, rst=>rst);
+  uut: microprocessor port map(clk, rst);
 
   process
   begin

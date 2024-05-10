@@ -2,7 +2,6 @@
 
 rm ./work-obj93.cf
 
-ghdl -a components/tff/tff.vhd
 ghdl -a components/regb16/regb16.vhd
 
 ghdl -a modules/state_machine/state_machine.vhd
@@ -15,7 +14,6 @@ ghdl -a modules/ula/ula.vhd
 ghdl -a microprocessor.vhd
 ghdl -a tb.vhd
 
-ghdl -e tff
 ghdl -e regb16
 
 ghdl -e pc

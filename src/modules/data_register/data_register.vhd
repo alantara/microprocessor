@@ -22,7 +22,7 @@ architecture arq of data_register is
   );
   end component;
 
-  signal d0, d1, d2, d3, d4, d5, d6, d7: unsigned(15 downto 0);
+  signal d0, d1, d2, d3, d4, d5, d6, d7: unsigned(15 downto 0) := "0000000000000000";
   signal sel_wr_en1, sel_wr_en2, sel_wr_en3, sel_wr_en4, sel_wr_en5, sel_wr_en6, sel_wr_en7: std_logic;
   signal wr_en1, wr_en2, wr_en3, wr_en4, wr_en5, wr_en6, wr_en7: std_logic;
 

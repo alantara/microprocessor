@@ -31,7 +31,7 @@ begin
 
   -- INSTANCIAR COMPONENTE AQUI
 
-  uut: ula port map(a=>a, b=>b, opcode=>opcode, zero=>zero, output=>output);
+  uut: ula port map(a, b, opcode, zero, output);
 
 
   process

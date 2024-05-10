@@ -28,11 +28,16 @@ architecture a_rom of rom is
   -- loop: 0x0E51 até 0x080F
   others => (others=>'0')
 );
+
+signal rom_data: unsigned(15 downto 0) := "0000000000000000";
+
 begin
   process(clk)
   begin
     if(rising_edge(clk)) then
-      data <= content(to_integer(address));
+      rom_data <= content(to_integer(address));
     end if;
   end process;
+
+  data<=rom_data;
 end architecture;
