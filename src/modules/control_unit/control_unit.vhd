@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity control_unit is 
   port(
-  instruction: in unsigned(31 downto 0);
+  instruction: in unsigned(15 downto 0);
   clk, rst : in std_logic;
   pc_clk, rom_clk: out std_logic;
   jmp_en: out std_logic
@@ -20,8 +20,8 @@ architecture a_control_unit of control_unit is
   );
   end component;
 
-  signal state: std_logic;
-  signal opcode: unsigned(2 downto 0); 
+  signal state: std_logic := '0';
+  signal opcode: unsigned(3 downto 0) := "0000"; 
   
 begin
 
@@ -33,8 +33,8 @@ begin
            '0';
 
 
-  opcode <= instruction(2 downto 0);
-  jmp_en <= '1' when opcode="111" else
+  opcode <= instruction(3 downto 0);
+  jmp_en <= '1' when opcode="1111" else
             '0';
 
 end a_control_unit;

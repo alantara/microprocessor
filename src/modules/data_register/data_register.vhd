@@ -4,9 +4,9 @@ use ieee.numeric_std.all;
 
 entity data_register is
   port(
-  sel_a, sel_b: in unsigned(2 downto 0);
+  rs1, rs2: in unsigned(2 downto 0);
   data_wr: in unsigned(15 downto 0);
-  sel_wr: in unsigned(2 downto 0);
+  rd: in unsigned(2 downto 0);
   clk, rst, wr_en: in std_logic;
   output_a, output_b: out unsigned(15 downto 0) 
 );
@@ -28,20 +28,13 @@ architecture arq of data_register is
 
 begin
 
-  sel_wr_en1<= '1' when sel_wr = "001" else
-               '0';
-  sel_wr_en2<= '1' when sel_wr = "010" else
-               '0';
-  sel_wr_en3<= '1' when sel_wr = "011" else
-               '0';
-  sel_wr_en4<= '1' when sel_wr = "100" else
-               '0';
-  sel_wr_en5<= '1' when sel_wr = "101" else
-               '0';
-  sel_wr_en6<= '1' when sel_wr = "110" else
-               '0';
-  sel_wr_en7<= '1' when sel_wr = "111" else
-               '0';
+  sel_wr_en1<= '1' when rd = "001" else '0';
+  sel_wr_en2<= '1' when rd = "010" else '0';
+  sel_wr_en3<= '1' when rd = "011" else '0';
+  sel_wr_en4<= '1' when rd = "100" else '0';
+  sel_wr_en5<= '1' when rd = "101" else '0';
+  sel_wr_en6<= '1' when rd = "110" else '0';
+  sel_wr_en7<= '1' when rd = "111" else '0';
   
   wr_en1<= sel_wr_en1 and wr_en;
   wr_en2<= sel_wr_en2 and wr_en;
@@ -61,24 +54,24 @@ begin
   reg7: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en7, d_in=>data_wr, d_out=>d7);
     
 
-  output_a <= d0 when sel_a = "000" else
-              d1 when sel_a = "001" else
-              d2 when sel_a = "010" else
-              d3 when sel_a = "011" else
-              d4 when sel_a = "100" else
-              d5 when sel_a = "101" else
-              d6 when sel_a = "110" else
-              d7 when sel_a = "111" else
+  output_a <= d0 when rs1 = "000" else
+              d1 when rs1 = "001" else
+              d2 when rs1 = "010" else
+              d3 when rs1 = "011" else
+              d4 when rs1 = "100" else
+              d5 when rs1 = "101" else
+              d6 when rs1 = "110" else
+              d7 when rs1 = "111" else
               "0000000000000000";
 
-  output_b <= d0 when sel_b = "000" else
-              d1 when sel_b = "001" else
-              d2 when sel_b = "010" else
-              d3 when sel_b = "011" else
-              d4 when sel_b = "100" else
-              d5 when sel_b = "101" else
-              d6 when sel_b = "110" else
-              d7 when sel_b = "111" else
+  output_b <= d0 when rs2 = "000" else
+              d1 when rs2 = "001" else
+              d2 when rs2 = "010" else
+              d3 when rs2 = "011" else
+              d4 when rs2 = "100" else
+              d5 when rs2 = "101" else
+              d6 when rs2 = "110" else
+              d7 when rs2 = "111" else
               "0000000000000000";
 
 end architecture;
