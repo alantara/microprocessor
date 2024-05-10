@@ -1,0 +1,9 @@
+	A	addi r3, zero, 5
+	B	addi r4, zero, 8
+	C	add	r5, r4, r3
+	D	subi r5, r5, 1
+	E	jmp	20
+	F	add r5, zero, zero
+	G	add	r5, zero, r3
+	H	jmp	2 -- pula para instrução C
+	I	add	r3, zero, zero
