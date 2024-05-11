@@ -1,29 +1,41 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri May 10 22:38:18 2024
+[*] Sat May 11 01:13:32 2024
 [*]
 [dumpfile] "/home/alan/Github/microprocessor/src/tb.ghw"
-[dumpfile_mtime] "Fri May 10 22:31:48 2024"
-[dumpfile_size] 2415
+[dumpfile_mtime] "Sat May 11 01:11:50 2024"
+[dumpfile_size] 6952
 [savefile] "/home/alan/Github/microprocessor/src/tb.gtkw"
 [timestart] 0
 [size] 1920 1016
 [pos] -1 -1
-*-28.336159 23000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.336159 345000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.tb.
 [treeopen] top.tb.uut.
-[treeopen] top.tb.uut.mem.
+[treeopen] top.tb.uut.dr.
+[treeopen] top.tb.uut.logic.
+[treeopen] top.tb.uut.uc.sm.
 [sst_width] 233
-[signals_width] 126
+[signals_width] 166
 [sst_expanded] 1
 [sst_vpaned_height] 289
-@29
-top.tb.rst
 @28
+top.tb.rst
 top.tb.clk
+#{top.tb.uut.uc.state[1:0]} top.tb.uut.uc.state[1] top.tb.uut.uc.state[0]
 @22
 #{top.tb.uut.mem.address[7:0]} top.tb.uut.mem.address[5] top.tb.uut.mem.address[4] top.tb.uut.mem.address[3] top.tb.uut.mem.address[2] top.tb.uut.mem.address[1] top.tb.uut.mem.address[0]
-#{top.tb.uut.mem.data[15:0]} top.tb.uut.mem.data[15] top.tb.uut.mem.data[14] top.tb.uut.mem.data[13] top.tb.uut.mem.data[12] top.tb.uut.mem.data[11] top.tb.uut.mem.data[10] top.tb.uut.mem.data[9] top.tb.uut.mem.data[8] top.tb.uut.mem.data[7] top.tb.uut.mem.data[6] top.tb.uut.mem.data[5] top.tb.uut.mem.data[4] top.tb.uut.mem.data[3] top.tb.uut.mem.data[2] top.tb.uut.mem.data[1] top.tb.uut.mem.data[0]
+#{top.tb.uut.instruction[15:0]} top.tb.uut.instruction[15] top.tb.uut.instruction[14] top.tb.uut.instruction[13] top.tb.uut.instruction[12] top.tb.uut.instruction[11] top.tb.uut.instruction[10] top.tb.uut.instruction[9] top.tb.uut.instruction[8] top.tb.uut.instruction[7] top.tb.uut.instruction[6] top.tb.uut.instruction[5] top.tb.uut.instruction[4] top.tb.uut.instruction[3] top.tb.uut.instruction[2] top.tb.uut.instruction[1] top.tb.uut.instruction[0]
+#{top.tb.uut.dr.d0[15:0]} top.tb.uut.dr.d0[15] top.tb.uut.dr.d0[14] top.tb.uut.dr.d0[13] top.tb.uut.dr.d0[12] top.tb.uut.dr.d0[11] top.tb.uut.dr.d0[10] top.tb.uut.dr.d0[9] top.tb.uut.dr.d0[8] top.tb.uut.dr.d0[7] top.tb.uut.dr.d0[6] top.tb.uut.dr.d0[5] top.tb.uut.dr.d0[4] top.tb.uut.dr.d0[3] top.tb.uut.dr.d0[2] top.tb.uut.dr.d0[1] top.tb.uut.dr.d0[0]
+#{top.tb.uut.dr.d1[15:0]} top.tb.uut.dr.d1[15] top.tb.uut.dr.d1[14] top.tb.uut.dr.d1[13] top.tb.uut.dr.d1[12] top.tb.uut.dr.d1[11] top.tb.uut.dr.d1[10] top.tb.uut.dr.d1[9] top.tb.uut.dr.d1[8] top.tb.uut.dr.d1[7] top.tb.uut.dr.d1[6] top.tb.uut.dr.d1[5] top.tb.uut.dr.d1[4] top.tb.uut.dr.d1[3] top.tb.uut.dr.d1[2] top.tb.uut.dr.d1[1] top.tb.uut.dr.d1[0]
+#{top.tb.uut.dr.d2[15:0]} top.tb.uut.dr.d2[15] top.tb.uut.dr.d2[14] top.tb.uut.dr.d2[13] top.tb.uut.dr.d2[12] top.tb.uut.dr.d2[11] top.tb.uut.dr.d2[10] top.tb.uut.dr.d2[9] top.tb.uut.dr.d2[8] top.tb.uut.dr.d2[7] top.tb.uut.dr.d2[6] top.tb.uut.dr.d2[5] top.tb.uut.dr.d2[4] top.tb.uut.dr.d2[3] top.tb.uut.dr.d2[2] top.tb.uut.dr.d2[1] top.tb.uut.dr.d2[0]
+#{top.tb.uut.dr.d3[15:0]} top.tb.uut.dr.d3[15] top.tb.uut.dr.d3[14] top.tb.uut.dr.d3[13] top.tb.uut.dr.d3[12] top.tb.uut.dr.d3[11] top.tb.uut.dr.d3[10] top.tb.uut.dr.d3[9] top.tb.uut.dr.d3[8] top.tb.uut.dr.d3[7] top.tb.uut.dr.d3[6] top.tb.uut.dr.d3[5] top.tb.uut.dr.d3[4] top.tb.uut.dr.d3[3] top.tb.uut.dr.d3[2] top.tb.uut.dr.d3[1] top.tb.uut.dr.d3[0]
+#{top.tb.uut.dr.d4[15:0]} top.tb.uut.dr.d4[15] top.tb.uut.dr.d4[14] top.tb.uut.dr.d4[13] top.tb.uut.dr.d4[12] top.tb.uut.dr.d4[11] top.tb.uut.dr.d4[10] top.tb.uut.dr.d4[9] top.tb.uut.dr.d4[8] top.tb.uut.dr.d4[7] top.tb.uut.dr.d4[6] top.tb.uut.dr.d4[5] top.tb.uut.dr.d4[4] top.tb.uut.dr.d4[3] top.tb.uut.dr.d4[2] top.tb.uut.dr.d4[1] top.tb.uut.dr.d4[0]
+#{top.tb.uut.dr.d5[15:0]} top.tb.uut.dr.d5[15] top.tb.uut.dr.d5[14] top.tb.uut.dr.d5[13] top.tb.uut.dr.d5[12] top.tb.uut.dr.d5[11] top.tb.uut.dr.d5[10] top.tb.uut.dr.d5[9] top.tb.uut.dr.d5[8] top.tb.uut.dr.d5[7] top.tb.uut.dr.d5[6] top.tb.uut.dr.d5[5] top.tb.uut.dr.d5[4] top.tb.uut.dr.d5[3] top.tb.uut.dr.d5[2] top.tb.uut.dr.d5[1] top.tb.uut.dr.d5[0]
+#{top.tb.uut.dr.d6[15:0]} top.tb.uut.dr.d6[15] top.tb.uut.dr.d6[14] top.tb.uut.dr.d6[13] top.tb.uut.dr.d6[12] top.tb.uut.dr.d6[11] top.tb.uut.dr.d6[10] top.tb.uut.dr.d6[9] top.tb.uut.dr.d6[8] top.tb.uut.dr.d6[7] top.tb.uut.dr.d6[6] top.tb.uut.dr.d6[5] top.tb.uut.dr.d6[4] top.tb.uut.dr.d6[3] top.tb.uut.dr.d6[2] top.tb.uut.dr.d6[1] top.tb.uut.dr.d6[0]
+#{top.tb.uut.dr.d7[15:0]} top.tb.uut.dr.d7[15] top.tb.uut.dr.d7[14] top.tb.uut.dr.d7[13] top.tb.uut.dr.d7[12] top.tb.uut.dr.d7[11] top.tb.uut.dr.d7[10] top.tb.uut.dr.d7[9] top.tb.uut.dr.d7[8] top.tb.uut.dr.d7[7] top.tb.uut.dr.d7[6] top.tb.uut.dr.d7[5] top.tb.uut.dr.d7[4] top.tb.uut.dr.d7[3] top.tb.uut.dr.d7[2] top.tb.uut.dr.d7[1] top.tb.uut.dr.d7[0]
+@23
+#{top.tb.uut.logic.output[15:0]} top.tb.uut.logic.output[15] top.tb.uut.logic.output[14] top.tb.uut.logic.output[13] top.tb.uut.logic.output[12] top.tb.uut.logic.output[11] top.tb.uut.logic.output[10] top.tb.uut.logic.output[9] top.tb.uut.logic.output[8] top.tb.uut.logic.output[7] top.tb.uut.logic.output[6] top.tb.uut.logic.output[5] top.tb.uut.logic.output[4] top.tb.uut.logic.output[3] top.tb.uut.logic.output[2] top.tb.uut.logic.output[1] top.tb.uut.logic.output[0]
 [pattern_trace] 1
 [pattern_trace] 0
