@@ -35,6 +35,18 @@ A instrução seria decodificada para 0x50A0. Considerando a tabela de identific
 
 A instrução seria decodificada para 0x0D10. Considerando a tabela de identificação de registradores ao final.
 
+## Tipo S
+
+|xxxxxxxxx|xxx|xxxx|
+
+- 9 bits de imediato
+- 3 bits para rd
+- 4 bits para opcode
+
+### Exemplo de instrução tipo S
+
+- LD r1, 123
+
 ## Instrução NOP
 
 A instrução NOP é decodificada para 0x0000
@@ -77,3 +89,9 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 | BGE       | 1101   |
 | BLE       | 1110   |
 | JMP       | 1111   |
+
+## Tipo S
+
+| Instrução | opcode |
+| --------- | ------ |
+| LD        | 0100   |

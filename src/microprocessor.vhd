@@ -59,7 +59,8 @@ architecture arq of microprocessor is
     pc_clk, rom_clk, rom_reg_clk, dr_clk: out std_logic;
     jmp_en: out std_logic;
     ula_opcode: out unsigned(2 downto 0);
-    ula_imm: out std_logic
+    ula_imm: out std_logic;
+    dr_ld, dr_mv: out std_logic
   );
   end component;
 
@@ -77,7 +78,8 @@ architecture arq of microprocessor is
   signal pc_clk, rom_clk, rom_reg_clk, dr_clk, jmp_en: std_logic := '0';
   signal ula_opcode: unsigned(2 downto 0) := "000";
   signal ula_imm: std_logic := '0';
-
+  signal dr_ld, dr_mv: std_logic :='0';
+  
   --PC
   signal pc_wr_data : unsigned(5 downto 0) := "000000";
   signal pc_address : unsigned(5 downto 0) := "000000";
@@ -89,9 +91,11 @@ architecture arq of microprocessor is
   signal instruction_fetch, instruction : unsigned(15 downto 0) := "0000000000000000";
   signal rd, rs1, rs2: unsigned(2 downto 0) := "000";
   signal imm: unsigned(5 downto 0) := "000000";
-  signal ext_imm: unsigned(15 downto 0) := "0000000000000000";
+  signal super_imm: unsigned(8 downto 0) := "000000000";
+  signal ext_imm, ext_super_imm: unsigned(15 downto 0) := "0000000000000000";
 
   --DATA REGISTER
+  signal dr_wr_data: unsigned(15 downto 0) := "0000000000000000";
   signal dr_out_a, dr_out_b: unsigned(15 downto 0) := "0000000000000000";
 
   --ULA
@@ -101,7 +105,7 @@ architecture arq of microprocessor is
 begin
 
   --CONTROL UNIT
-  uc: control_unit port map(instruction=>instruction, clk=>clk, rst=>rst, pc_clk=>pc_clk, rom_clk=>rom_clk, rom_reg_clk=>rom_reg_clk, dr_clk=>dr_clk, jmp_en=>jmp_en, ula_opcode=>ula_opcode, ula_imm=>ula_imm);
+  uc: control_unit port map(instruction=>instruction, clk=>clk, rst=>rst, pc_clk=>pc_clk, rom_clk=>rom_clk, rom_reg_clk=>rom_reg_clk, dr_clk=>dr_clk, jmp_en=>jmp_en, ula_opcode=>ula_opcode, ula_imm=>ula_imm, dr_ld=>dr_ld, dr_mv=>dr_mv);
 
   --PC
   pc_wr_data<=po_address when jmp_en='0' else
@@ -120,10 +124,15 @@ begin
   rs1<=instruction(9 downto 7);
   rs2<=instruction(12 downto 10);
   imm<=instruction(15 downto 10);
+  super_imm<=instruction(15 downto 7);
   ext_imm<="0000000000" & imm;
+  ext_super_imm<="0000000" & super_imm;
 
   --DATA REGISTER
-  dr: data_register port map(rs1=>rs1, rs2=>rs2, data_wr=>ula_out, rd=>rd, clk=>dr_clk, rst=>rst, wr_en=>'1', output_a=>dr_out_a, output_b=>dr_out_b);
+  dr_wr_data<=ext_super_imm when dr_ld='1' else
+              dr_out_a when dr_mv='1' else
+              ula_out;
+  dr: data_register port map(rs1=>rs1, rs2=>rs2, data_wr=>dr_wr_data, rd=>rd, clk=>dr_clk, rst=>rst, wr_en=>'1', output_a=>dr_out_a, output_b=>dr_out_b);
 
   --ULA
   ula_b<=dr_out_b when ula_imm='0' else ext_imm;

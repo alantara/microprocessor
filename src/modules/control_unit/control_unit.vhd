@@ -9,7 +9,8 @@ entity control_unit is
   pc_clk, rom_clk, rom_reg_clk, dr_clk: out std_logic;
   jmp_en: out std_logic;
   ula_opcode: out unsigned(2 downto 0);
-  ula_imm: out std_logic
+  ula_imm: out std_logic;
+  dr_ld, dr_mv: out std_logic
 );
 end;
 
@@ -37,8 +38,6 @@ begin
            '0';
   rom_reg_clk<='1' when state = "001" and clk='0' else
                '0';
-  dr_clk<='1' when state = "010" else
-           '0';
 
   
   jmp_en <= '1' when opcode="1111" else
@@ -48,9 +47,21 @@ begin
               "000" when opcode="1000" else
               "001" when opcode="0001" and func3="001" else
               "001" when opcode="1001" else
-              "111";
+              "000";
   ula_imm<='1' when opcode="1000" else
            '1' when opcode="1001" else
            '0';
+
+  dr_clk<='1' when opcode="0001" and func3="000" and state="010" else --ADD
+          '1' when opcode="0001" and func3="001" and state="010"else --SUB
+          '1' when opcode="1000"                 and state="010"else --ADDI
+          '1' when opcode="1001"                 and state="010"else --SUBI
+          '1' when opcode="0011" and func3="000" and state="010"else --MOV
+          '1' when opcode="0100"                 and state="010"else --LD
+          '0';
+  dr_ld<='1' when opcode="0100" else
+         '0';
+  dr_mv<='1' when opcode="0011" and func3="000" else
+         '0';
 
 end a_control_unit;

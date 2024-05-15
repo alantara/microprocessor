@@ -12,7 +12,7 @@ ghdl -a modules/control_unit/control_unit.vhd
 ghdl -a modules/rom/rom.vhd
 ghdl -a modules/ula/ula.vhd
 ghdl -a microprocessor.vhd
-ghdl -a tb.vhd
+ghdl -a processador_tb.vhd
 
 ghdl -e regb16
 

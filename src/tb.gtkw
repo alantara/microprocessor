@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Sat May 11 01:13:32 2024
+[*] Wed May 15 20:10:39 2024
 [*]
 [dumpfile] "/home/alan/Github/microprocessor/src/tb.ghw"
-[dumpfile_mtime] "Sat May 11 01:11:50 2024"
-[dumpfile_size] 6952
+[dumpfile_mtime] "Wed May 15 20:10:24 2024"
+[dumpfile_size] 9123
 [savefile] "/home/alan/Github/microprocessor/src/tb.gtkw"
 [timestart] 0
-[size] 1920 1016
+[size] 1850 1016
 [pos] -1 -1
-*-28.336159 345000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-29.442558 345000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.tb.
 [treeopen] top.tb.uut.
