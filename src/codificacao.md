@@ -4,48 +4,50 @@ Todas as instruções tem 16 bits
 
 ## Tipo I
 
-Instruções que levam um imediato de 6 bits. Instruções de branch e jump também são tipo I, pois carregam 6 bits que identificam o endereço da próxima instrução
+Instruções que levam um imediato de X bits.
 
-|xxxxxx|xxx|xxx|xxxx|
+|xxxxxxxxxxxx|xxxx|
 
-- 6 bits de imediato
-- 3 bits para o registrador rs1
-- 3 bits para o registrador rd
+- 12 bits de imediato
 - 4 bits para opcode
 
 ### Exemplo de instrução tipo I
 
-- ADDI r1, r2, 20
+- LD A, -1
 
-A instrução seria decodificada para 0x50A0. Considerando a tabela de identificação de registradores ao final.
+A instrução seria decodificada para 0xFFF0. Considerando a tabela de decodificaçâo ao final.
 
 ## Tipo R
 
-|xxx|xxx|xxx|xxx|xxxx|
+|xxxxxxxxx|xxx|xxxx|
 
-- 3 bits de funct3 - extensão do opcode
-- 3 bits para rs2
-- 3 bits para rs1
-- 3 bits para rd
+- 9 bits sem uso &#x1F44D;
+- 3 bits para R
 - 4 bits para opcode
 
 ### Exemplo de instrução tipo R
 
-- ADD r1, r2, r3
+- ADD R1
 
-A instrução seria decodificada para 0x0D10. Considerando a tabela de identificação de registradores ao final.
+Adiciona o valor do acumulador com o valor do registrador R e salva no acumulador
+
+A instrução seria decodificada para 0x0D14. Considerando a tabela de identificação de registradores ao final.
 
 ## Tipo S
+
+Apenas para LD R, C
 
 |xxxxxxxxx|xxx|xxxx|
 
 - 9 bits de imediato
-- 3 bits para rd
+- 3 bits para R
 - 4 bits para opcode
 
 ### Exemplo de instrução tipo S
 
-- LD r1, 123
+- LD r1, 510
+
+A instrução seria decodificada para 0xFF0F
 
 ## Instrução NOP
 
@@ -71,27 +73,23 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 
 ## Tipo R
 
-| Instrução | opcode | funct3 |
-| --------- | ------ | ------ |
-| ADD       | 0001   | 000    |
-| SUB       | 0001   | 001    |
-| MUL       | 0010   | 000    |
-| MOV       | 0011   | 000    |
+| Instrução | opcode |
+| --------- | ------ |
+| MOV R, A  | 0010   |
+| MOV A, R  | 0011   |
+| ADD       | 0100   |
+| SUB       | 0101   |
+| SUBB      | 0111   |
 
 ## Tipo I
 
 | Instrução | opcode |
 | --------- | ------ |
-| ADDI      | 1000   |
-| SUBI      | 1001   |
-| MULI      | 1010   |
-| BEQ       | 1100   |
-| BGE       | 1101   |
-| BLE       | 1110   |
-| JMP       | 1111   |
+| LD A, C   | 0000   |
+| JMP       | 0001   |
 
 ## Tipo S
 
 | Instrução | opcode |
 | --------- | ------ |
-| LD        | 0100   |
+| LD R, C   | 1111   |
