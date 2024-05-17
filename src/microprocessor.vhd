@@ -12,11 +12,11 @@ architecture arq of microprocessor is
 
   component data_register is
     port(
-    rs1, rs2: in unsigned(2 downto 0);
+    rs1: in unsigned(2 downto 0);
     data_wr: in unsigned(15 downto 0);
     rd: in unsigned(2 downto 0);
     clk, rst, wr_en: in std_logic;
-    output_a, output_b: out unsigned(15 downto 0) 
+    output_a: out unsigned(15 downto 0) 
   );
   end component;
 
@@ -75,7 +75,7 @@ architecture arq of microprocessor is
 
 
   --CONTROL UNIT
-  signal pc_clk, rom_clk, rom_reg_clk, dr_clk, jmp_en: std_logic := '0';
+  signal pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, jmp_en: std_logic := '0';
   signal ula_opcode: unsigned(2 downto 0) := "000";
   signal ula_imm: std_logic := '0';
   signal dr_ld, dr_mv: std_logic :='0';
@@ -102,6 +102,9 @@ architecture arq of microprocessor is
   signal ula_b, ula_out: unsigned(15 downto 0) := "0000000000000000";
   signal zero_flag: std_logic := '0';
 
+  --ACCUMULATOR
+  signal acc_in, acc_out: unsigned(15 downto 0) := "0000000000000000";
+
 begin
 
   --CONTROL UNIT
@@ -122,7 +125,6 @@ begin
 
   rd<=instruction(6 downto 4);
   rs1<=instruction(9 downto 7);
-  rs2<=instruction(12 downto 10);
   imm<=instruction(15 downto 10);
   super_imm<=instruction(15 downto 7);
   ext_imm<="0000000000" & imm;
@@ -130,13 +132,16 @@ begin
 
   --DATA REGISTER
   dr_wr_data<=ext_super_imm when dr_ld='1' else
-              dr_out_a when dr_mv='1' else
               ula_out;
-  dr: data_register port map(rs1=>rs1, rs2=>rs2, data_wr=>dr_wr_data, rd=>rd, clk=>dr_clk, rst=>rst, wr_en=>'1', output_a=>dr_out_a, output_b=>dr_out_b);
+  dr: data_register port map(rs1=>rs1, data_wr=>dr_wr_data, rd=>rd, clk=>dr_clk, rst=>rst, wr_en=>'1', output_a=>dr_out_a);
 
   --ULA
-  ula_b<=dr_out_b when ula_imm='0' else ext_imm;
+  logic: ula port map(a=>dr_out_a, b=>acc_out, opcode=>ula_opcode, zero=>zero_flag, output=>ula_out);
 
-  logic: ula port map(a=>dr_out_a, b=>ula_b, opcode=>ula_opcode, zero=>zero_flag, output=>ula_out);
+  --ACCUMULATOR
+  acc_in<=ext_imm when TODO else
+          dr_out_a when TODO else
+          ula_out;
+  acc: regb16 port map(clk=>acc_clk, rst=>rst, wr_en=>'1', d_in=>acc_in, d_out=>acc_out);
 
 end architecture;

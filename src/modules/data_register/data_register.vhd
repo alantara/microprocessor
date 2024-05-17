@@ -4,11 +4,11 @@ use ieee.numeric_std.all;
 
 entity data_register is
   port(
-  rs1, rs2: in unsigned(2 downto 0);
+  rs1: in unsigned(2 downto 0);
   data_wr: in unsigned(15 downto 0);
   rd: in unsigned(2 downto 0);
   clk, rst, wr_en: in std_logic;
-  output_a, output_b: out unsigned(15 downto 0) 
+  output_a: out unsigned(15 downto 0) 
 );
 end entity;
 
@@ -62,16 +62,6 @@ begin
               d5 when rs1 = "101" else
               d6 when rs1 = "110" else
               d7 when rs1 = "111" else
-              "0000000000000000";
-
-  output_b <= d0 when rs2 = "000" else
-              d1 when rs2 = "001" else
-              d2 when rs2 = "010" else
-              d3 when rs2 = "011" else
-              d4 when rs2 = "100" else
-              d5 when rs2 = "101" else
-              d6 when rs2 = "110" else
-              d7 when rs2 = "111" else
               "0000000000000000";
 
 end architecture;
