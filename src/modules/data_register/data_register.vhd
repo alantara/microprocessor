@@ -4,11 +4,10 @@ use ieee.numeric_std.all;
 
 entity data_register is
   port(
-  rs1: in unsigned(2 downto 0);
+  rs, rd: in unsigned(2 downto 0);
   data_wr: in unsigned(15 downto 0);
-  rd: in unsigned(2 downto 0);
   clk, rst, wr_en: in std_logic;
-  output_a: out unsigned(15 downto 0) 
+  output: out unsigned(15 downto 0) 
 );
 end entity;
 
@@ -17,8 +16,8 @@ architecture arq of data_register is
   component regb16 is
     port(
     clk, rst, wr_en: in std_logic;
-    d_in: in unsigned(15 downto 0);
-    d_out: out unsigned(15 downto 0)
+    data_in: in unsigned(15 downto 0);
+    data_out: out unsigned(15 downto 0)
   );
   end component;
 
@@ -44,24 +43,24 @@ begin
   wr_en6<= sel_wr_en6 and wr_en;
   wr_en7<= sel_wr_en7 and wr_en;
 
-  reg0: regb16 port map(clk=>'0', rst=>'1', wr_en=>'0', d_in=>"0000000000000000", d_out=>d0);
-  reg1: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en1, d_in=>data_wr, d_out=>d1);
-  reg2: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en2, d_in=>data_wr, d_out=>d2);
-  reg3: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en3, d_in=>data_wr, d_out=>d3);
-  reg4: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en4, d_in=>data_wr, d_out=>d4);
-  reg5: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en5, d_in=>data_wr, d_out=>d5);
-  reg6: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en6, d_in=>data_wr, d_out=>d6);
-  reg7: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en7, d_in=>data_wr, d_out=>d7);
+  reg0: regb16 port map(clk=>'0', rst=>'1', wr_en=>'0',    data_in=>"0000000000000000", data_out=>d0);
+  reg1: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en1, data_in=>data_wr,            data_out=>d1);
+  reg2: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en2, data_in=>data_wr,            data_out=>d2);
+  reg3: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en3, data_in=>data_wr,            data_out=>d3);
+  reg4: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en4, data_in=>data_wr,            data_out=>d4);
+  reg5: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en5, data_in=>data_wr,            data_out=>d5);
+  reg6: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en6, data_in=>data_wr,            data_out=>d6);
+  reg7: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en7, data_in=>data_wr,            data_out=>d7);
     
 
-  output_a <= d0 when rs1 = "000" else
-              d1 when rs1 = "001" else
-              d2 when rs1 = "010" else
-              d3 when rs1 = "011" else
-              d4 when rs1 = "100" else
-              d5 when rs1 = "101" else
-              d6 when rs1 = "110" else
-              d7 when rs1 = "111" else
-              "0000000000000000";
+  output <= d0 when rs = "000" else
+            d1 when rs = "001" else
+            d2 when rs= "010" else
+            d3 when rs = "011" else
+            d4 when rs = "100" else
+            d5 when rs = "101" else
+            d6 when rs = "110" else
+            d7 when rs = "111" else
+            "0000000000000000";
 
 end architecture;

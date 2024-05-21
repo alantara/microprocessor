@@ -1,31 +1,31 @@
 v 4
-file . "processador_tb.vhd" "cfd5f1073bbb88b2c6c79c126a7d6d52bead04d3" "20240515211200.931":
+file . "processador_tb.vhd" "5bde41f0dce597a823d590f19dc997c3ae75d899" "20240521001854.478":
   entity tb at 1( 0) + 0 on 29;
   architecture arq of tb at 7( 89) + 0 on 30;
-file . "modules/ula/ula.vhd" "6926aa9d4979c586af59d0088dd45f3edd0db5f0" "20240515211200.912":
+file . "modules/ula/ula.vhd" "6926aa9d4979c586af59d0088dd45f3edd0db5f0" "20240521001854.431":
   entity ula at 1( 0) + 0 on 25;
   architecture arq of ula at 14( 236) + 0 on 26;
-file . "modules/control_unit/control_unit.vhd" "513222efa1bd92edd6409c38a6b0ef0374af553b" "20240515211200.887":
+file . "modules/control_unit/control_unit.vhd" "4a4adea863f02dec0a4a5aa5a6d51e2c9a199f9c" "20240521001854.383":
   entity control_unit at 1( 0) + 0 on 21;
-  architecture a_control_unit of control_unit at 17( 355) + 0 on 22;
-file . "modules/plus_one/plus_one.vhd" "b78720cb8baab539c4f9be9902394360847c0629" "20240515211200.854":
+  architecture a_control_unit of control_unit at 15( 330) + 0 on 22;
+file . "modules/plus_one/plus_one.vhd" "b78720cb8baab539c4f9be9902394360847c0629" "20240521001854.333":
   entity plus_one at 1( 0) + 0 on 17;
   architecture a_plus_one of plus_one at 12( 186) + 0 on 18;
-file . "modules/state_machine/state_machine.vhd" "213ecc5fc0248f01d9d690d8568cddd356ce4c9a" "20240515211200.810":
+file . "modules/state_machine/state_machine.vhd" "213ecc5fc0248f01d9d690d8568cddd356ce4c9a" "20240521001854.282":
   entity state_machine at 1( 0) + 0 on 13;
   architecture a_state_machine of state_machine at 12( 181) + 0 on 14;
-file . "components/regb16/regb16.vhd" "e6280d74316102dc78b94fcdf7f739a2eed56ec2" "20240515211200.783":
+file . "components/regb16/regb16.vhd" "6a5dd8e1a5f878aff602751caf5903a2969b1747" "20240521001854.256":
   entity regb16 at 1( 0) + 0 on 11;
-  architecture a_regb16 of regb16 at 13( 213) + 0 on 12;
-file . "modules/pc/pc.vhd" "45d724db4e0b8cc2ddf75b9ff18e4a0ffc87e805" "20240515211200.836":
+  architecture a_regb16 of regb16 at 13( 219) + 0 on 12;
+file . "modules/pc/pc.vhd" "45d724db4e0b8cc2ddf75b9ff18e4a0ffc87e805" "20240521001854.307":
   entity pc at 1( 0) + 0 on 15;
   architecture arq of pc at 13( 214) + 0 on 16;
-file . "modules/data_register/data_register.vhd" "b13a19d475f96f05301dc797ab8edae7bdbb934c" "20240515211200.873":
+file . "modules/data_register/data_register.vhd" "ef3ac49528fa0a97f4bb7fbf4a3865de2dd58de2" "20240521001854.359":
   entity data_register at 1( 0) + 0 on 19;
-  architecture arq of data_register at 15( 305) + 0 on 20;
-file . "modules/rom/rom.vhd" "9cba58b9aa583e7c6bf5b617ae99e25de041b52e" "20240515211200.900":
+  architecture arq of data_register at 14( 260) + 0 on 20;
+file . "modules/rom/rom.vhd" "3d6b7a7e8afaf84f9d15357c797ebfaffb15a09e" "20240521001854.408":
   entity rom at 1( 0) + 0 on 23;
   architecture a_rom of rom at 13( 237) + 0 on 24;
-file . "microprocessor.vhd" "0ed478ecd7f50ac2ba22ee9b441162ca4e672429" "20240515211200.922":
+file . "microprocessor.vhd" "1837aaa647fbe68698bf9bb5f70c6f24b6ee8338" "20240521001854.456":
   entity microprocessor at 1( 0) + 0 on 27;
   architecture arq of microprocessor at 11( 146) + 0 on 28;
