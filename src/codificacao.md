@@ -21,7 +21,7 @@ A instrução seria decodificada para 0xFFF0. Considerando a tabela de decodific
 
 |xxxxxxxxx|xxx|xxxx|
 
-- 9 bits sem uso &#x1F44D;
+- 9 bits de imediato (utilizado apenas se for LD R, C)
 - 3 bits para R
 - 4 bits para opcode
 
@@ -32,22 +32,6 @@ A instrução seria decodificada para 0xFFF0. Considerando a tabela de decodific
 Adiciona o valor do acumulador com o valor do registrador R e salva no acumulador
 
 A instrução seria decodificada para 0x0D14. Considerando a tabela de identificação de registradores ao final.
-
-## Tipo S
-
-Apenas para LD R, C
-
-|xxxxxxxxx|xxx|xxxx|
-
-- 9 bits de imediato
-- 3 bits para R
-- 4 bits para opcode
-
-### Exemplo de instrução tipo S
-
-- LD r1, 510
-
-A instrução seria decodificada para 0xFF0F
 
 ## Instrução NOP
 
@@ -80,6 +64,7 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 | ADD       | 0100   |
 | SUB       | 0101   |
 | SUBB      | 0111   |
+| LD R, C   | 1111   |
 
 ## Tipo I
 
@@ -87,9 +72,3 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 | --------- | ------ |
 | LD A, C   | 0000   |
 | JMP       | 0001   |
-
-## Tipo S
-
-| Instrução | opcode |
-| --------- | ------ |
-| LD R, C   | 1111   |
