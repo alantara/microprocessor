@@ -3,6 +3,7 @@
 rm ./work-obj93.cf
 
 ghdl -a components/regb16/regb16.vhd
+ghdl -a components/regb1/regb1.vhd
 
 ghdl -a modules/state_machine/state_machine.vhd
 ghdl -a modules/pc/pc.vhd
@@ -14,6 +15,7 @@ ghdl -a modules/ula/ula.vhd
 ghdl -a microprocessor.vhd
 ghdl -a processador_tb.vhd
 
+ghdl -e regb1
 ghdl -e regb16
 
 ghdl -e pc

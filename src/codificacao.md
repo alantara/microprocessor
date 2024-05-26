@@ -2,21 +2,6 @@
 
 Todas as instruções tem 16 bits
 
-## Tipo I
-
-Instruções que levam um imediato de X bits.
-
-|xxxxxxxxxxxx|xxxx|
-
-- 12 bits de imediato
-- 4 bits para opcode
-
-### Exemplo de instrução tipo I
-
-- LD A, -1
-
-A instrução seria decodificada para 0xFFF0. Considerando a tabela de decodificaçâo ao final.
-
 ## Tipo R
 
 |xxxxxxxxx|xxx|xxxx|
@@ -53,22 +38,29 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 | r6          | 110           |
 | r7          | 111           |
 
+# Tabela de identificação de registradores de flags
+
+| Registrador | Decodificação |
+| ----------- | ------------- |
+| zero        | 000           |
+| carry       | 001           |
+| greater     | 010           |
+
 # Tabela de decodificação de instruções
 
 ## Tipo R
 
 | Instrução | opcode |
 | --------- | ------ |
+| JMP       | 0001   |
 | MOV R, A  | 0010   |
 | MOV A, R  | 0011   |
 | ADD       | 0100   |
 | SUB       | 0101   |
 | SUBB      | 0111   |
+| CLR F     | 1000   |
+| BEQ       | 1001   |
+| BLT       | 1010   |
+| BGT       | 1011   |
 | LD R, C   | 1111   |
-
-## Tipo I
-
-| Instrução | opcode |
-| --------- | ------ |
-| LD A, C   | 0000   |
-| JMP       | 0001   |
+| LD A, C   | 1110   |
