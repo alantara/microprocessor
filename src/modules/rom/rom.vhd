@@ -1,65 +1,62 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity rom is
-  port( 
-        clk      : in std_logic;
-        address : in unsigned(5 downto 0);
-        data     : out unsigned(15 downto 0) 
-      );
-end entity;
+ENTITY rom IS
+  PORT (
+    clk : IN STD_LOGIC;
+    address : IN unsigned(5 DOWNTO 0);
+    data : OUT unsigned(15 DOWNTO 0)
+  );
+END ENTITY;
 
-architecture a_rom of rom is
-  type mem is array (0 to 63) of unsigned(15 downto 0);
-  constant content : mem := (
-  0  => B"000000000_011_1111", --LD R3, 0x0
+ARCHITECTURE a_rom OF rom IS
+  TYPE mem IS ARRAY (0 TO 63) OF unsigned(15 DOWNTO 0);
+  CONSTANT content : mem := (
+    0 => B"000000000_011_1111",
 
-  1  => B"000000000_100_1111", --LD R4, 0x0
+    1 => B"000000000_100_1111",
 
-  2  => B"000000000_011_0011", --MOV A, R3
-  3  => B"000000000_100_0100", --ADD A, R4
-  4  => B"000000000_100_0010", --MOV R4, A
+    2 => B"001111111_111_1111",
 
-  5  => B"000000001_000_1110", --LD A, 0x1
-  6  => B"000000000_011_0100", --ADD A, R3
-  7  => B"000000000_011_0010", --MOV R3, A
+    4 => B"000001010_000_0001",
 
-  8  => B"000000000_010_1000", --CLR G
-  9  => B"000011110_000_1110", --LD A, 0x1E
-  10 => B"000000000_011_0101", --SUB R3, A
-  11 => B"111110111_000_1010", --BLT -9
+    10 => B"000000000_011_0011",
+    11 => B"000000000_100_0100",
+    12 => B"000000000_100_0010",
 
+    13 => B"000000001_000_1110",
+    14 => B"000000000_011_0100",
+    15 => B"000000000_011_0010",
 
-  12 => B"000000000_100_0011", --MOV A, R4
-  13 => B"000000000_101_0010", --MOV R5, A
+    16 => B"000000000_110_1000",
+    17 => B"111111111_110_1111",
+    18 => B"111111111_000_1110",
+    19 => B"000000000_110_0100",
 
-  --0  => B"000000101_011_1111", --LD R3, 0x5
-  --1  => B"000001000_100_1111", --LD R4, 0x8
-  --2  => B"000000000_011_0011", --MOV A, R3
-  --3  => B"000000000_100_0100", --ADD A, R4
-  --4  => B"000000000_101_0010", --MOV R5, A
-  --5  => B"111111111_111_1110", --LD A, -1
-  --6  => B"000000000_101_0100", --ADD A, R5
-  --7  => B"000000000_101_0010", --MOV R5, A
-  --8  => B"000010100_000_0001", --JMP 20
-  --9  => B"000000000_101_1111", --LD R5, 0x0
-  --20 => B"000000000_101_0011", --MV A, R5
-  --25 => B"000000000_011_0010", --MV R3, A
-  --26 => B"000000010_000_0001", --JMP 2
-  --27 => B"000000000_011_1111", --LD R3, 0x0
-  others => (others=>'0')
-);
+    20 => B"000000001_000_1110",
+    21 => B"000000000_111_0110",
+    22 => B"000000000_111_0010",
 
-signal rom_data: unsigned(15 downto 0) := "0000000000000000";
+    23 => B"000000000_000_1000",
+    24 => B"000011110_000_1110",
+    25 => B"000000000_011_0101",
+    26 => B"111110000_000_1011",
 
-begin
-  process(clk)
-  begin
-    if(rising_edge(clk)) then
+    27 => B"000000000_100_0011",
+    28 => B"000000000_101_0010",
+    OTHERS => (OTHERS => '0')
+  );
+
+  SIGNAL rom_data : unsigned(15 DOWNTO 0) := "0000000000000000";
+
+BEGIN
+  PROCESS (clk)
+  BEGIN
+    IF (rising_edge(clk)) THEN
       rom_data <= content(to_integer(address));
-    end if;
-  end process;
+    END IF;
+  END PROCESS;
 
-  data<=rom_data;
-end architecture;
+  data <= rom_data;
+END ARCHITECTURE;

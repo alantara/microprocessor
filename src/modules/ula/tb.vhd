@@ -1,81 +1,102 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity tb is end;
+ENTITY tb IS END;
 
-architecture arq of tb is
-  signal clk, rst: std_logic := '0';
-  constant period_time: time := 100 ns;
-  signal finished: std_logic := '0';
+ARCHITECTURE arq OF tb IS
+  SIGNAL clk, rst : STD_LOGIC := '0';
+  CONSTANT period_time : TIME := 100 ns;
+  SIGNAL finished : STD_LOGIC := '0';
 
--- DECLARAR COMPONENTS E SIGNALS AQUI
+  -- DECLARE COMPONENTS AND SIGNALS HERE
 
-  
-  signal a, b: unsigned(15 downto 0) := "0000000000000000";
-  signal opcode: unsigned(2 downto 0) := "000";
-  signal zero: std_logic;
-  signal output: unsigned(15 downto 0);
+  SIGNAL a, b : unsigned(15 DOWNTO 0) := "0000000000000000";
+  SIGNAL borrow : STD_LOGIC := '0';
+  SIGNAL opcode : unsigned(1 DOWNTO 0) := "00";
+  SIGNAL carry_flag, zero_flag, greater_flag : STD_LOGIC := '0';
+  SIGNAL output : unsigned (15 DOWNTO 0) := "0000000000000000";
 
-  component ula is
-    port(
-    a, b: in unsigned(15 downto 0);
-    opcode: in unsigned(2 downto 0);
-    zero: out std_logic;
-    output: out unsigned(15 downto 0)
-  );
-  end component;
+  COMPONENT ula IS
+    PORT (
+      a, b : IN unsigned(15 DOWNTO 0);
+      borrow : IN STD_LOGIC;
+      opcode : IN unsigned(1 DOWNTO 0);
+      zero_flag, carry_flag, greater_flag : OUT STD_LOGIC;
+      output : OUT unsigned(15 DOWNTO 0)
+    );
+  END COMPONENT;
 
+BEGIN
 
-begin
+  -- COMPONENT HERE
 
-  -- INSTANCIAR COMPONENTE AQUI
+  uut : ula PORT MAP(a, b, borrow, opcode, carry_flag, zero_flag, greater_flag, output);
 
-  uut: ula port map(a, b, opcode, zero, output);
+  PROCESS
+  BEGIN
+    rst <= '1';
+    WAIT FOR period_time;
+    rst <= '0';
 
+    -- TEST CASES HERE
 
-  process
-  begin
-    wait for period_time;
+    a <= "0000000000000001";
+    b <= "0000000000000001";
+    borrow <= '0';
+    opcode <= "00";
+    WAIT FOR period_time;
+    a <= "0000000000000001";
+    b <= "0000000000010001";
+    borrow <= '1';
+    opcode <= "00";
+    WAIT FOR period_time;
+    a <= "0000000000000001";
+    b <= "0000000000000001";
+    borrow <= '0';
+    opcode <= "01";
+    WAIT FOR period_time;
+    a <= "0000000000000001";
+    b <= "0000001100010001";
+    borrow <= '1';
+    opcode <= "01";
+    WAIT FOR period_time;
+    a <= "0000000000000010";
+    b <= "0000000000000001";
+    borrow <= '1';
+    opcode <= "10";
+    WAIT FOR period_time;
+    a <= "1000000000000001";
+    b <= "1111111111111111";
+    borrow <= '0';
+    opcode <= "00";
+    WAIT FOR period_time;
+    a <= "0000000000000001";
+    b <= "0000000000000001";
+    borrow <= '0';
+    opcode <= "11";
+    WAIT FOR period_time;
 
-    -- COLOCAR CASOS DE TESTE AQUI
+    WAIT;
+  END PROCESS;
 
-    a<="0010011000010100"; b<="0000010000001101"; opcode<= "000"; wait for period_time;
-    a<="0010000000100000"; b<="0000000000111100"; opcode<= "001"; wait for period_time;
-    a<="0000100100100000"; b<="0000110000010001"; opcode<= "010"; wait for period_time;
-    a<="0011010110111100"; b<="0011000110000000"; opcode<= "011"; wait for period_time;
-    a<="0000001111000110"; b<="1101000001110001"; opcode<= "100"; wait for period_time;
-    a<="0111111000010000"; b<="0001001011000000"; opcode<= "101"; wait for period_time;
-    a<="0000000110001100"; b<="0001001000010100"; opcode<= "110"; wait for period_time;
-    a<="0000000000111100"; b<="0101100000111000"; opcode<= "111"; wait for period_time;
+  --DEFAULT PROCESSES
 
-    wait;
-  end process;
-
-
-  sim_time_proc: process
-  begin
-    wait for 5 us;
+  sim_time_proc : PROCESS
+  BEGIN
+    WAIT FOR 5 us;
     finished <= '1';
-    wait;
-  end process;
+    WAIT;
+  END PROCESS;
 
-  clk_proc: process
-  begin
-    while finished /= '1' loop
+  clk_proc : PROCESS
+  BEGIN
+    WHILE finished /= '1' LOOP
       clk <= '0';
-      wait for period_time/2;
+      WAIT FOR period_time/2;
       clk <= '1';
-      wait for period_time/2;
-    end loop;
-    wait;
-  end process;
-
-  rst_proc: process
-  begin
-    rst<='1';
-    wait for period_time;
-    rst<='0';
-    wait;
-  end process;
-end architecture;
+      WAIT FOR period_time/2;
+    END LOOP;
+    WAIT;
+  END PROCESS;
+END ARCHITECTURE;

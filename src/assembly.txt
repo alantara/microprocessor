@@ -1,6 +1,0 @@
-	A	addi r3, zero, 0
-	B	addi r4, zero, 0
-	C	add	r4, r4, r3
-	D	addi r3, r3, 1
-	E	blt r3, 30, -2
-	F	add r5, r4, zero

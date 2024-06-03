@@ -1,75 +1,69 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity tb is end;
+ENTITY tb IS END;
 
-architecture arq of tb is
-  signal clk, rst: std_logic := '0';
-  constant period_time: time := 100 ns;
-  signal finished: std_logic := '0';
+ARCHITECTURE arq OF tb IS
+  SIGNAL clk, rst : STD_LOGIC := '0';
+  CONSTANT period_time : TIME := 100 ns;
+  SIGNAL finished : STD_LOGIC := '0';
 
--- DECLARAR COMPONENTS E SIGNALS AQUI
+  -- DECLARE COMPONENTS AND SIGNALS HERE
+  SIGNAL wr_en : STD_LOGIC := '0';
+  SIGNAL data_in : STD_LOGIC := '0';
+  SIGNAL data_out : STD_LOGIC := '0';
 
-  signal wr_en: std_logic := '0';
-  signal d_in: unsigned(15 downto 0) := "0000000000000000";
-  signal d_out: unsigned(15 downto 0) := "0000000000000000";
+  COMPONENT regb1 IS
+    PORT (
+      clk, rst, wr_en : IN STD_LOGIC;
+      data_in : IN STD_LOGIC;
+      data_out : OUT STD_LOGIC
+    );
+  END COMPONENT;
 
+BEGIN
 
-  component regb16 is
-    port(
-    clk, rst, wr_en: in std_logic;
-    d_in: in unsigned(15 downto 0);
-    d_out: out unsigned(15 downto 0)
-  );
-  end component;
+  -- COMPONENT HERE
+  uut : regb1 PORT MAP(clk, rst, wr_en, data_in, data_out);
 
+  PROCESS
+  BEGIN
+    rst <= '1';
+    WAIT FOR period_time;
+    rst <= '0';
 
-begin
+    -- TEST CASES HERE
+    wr_en <= '1';
+    data_in <= '1';
+    WAIT FOR period_time;
+    wr_en <= '1';
+    data_in <= '0';
+    WAIT FOR period_time;
+    wr_en <= '1';
+    data_in <= '1';
+    WAIT FOR period_time;
 
-  -- INSTANCIAR COMPONENTE AQUI
+    WAIT;
+  END PROCESS;
 
-  uut: regb16 port map(clk=>clk, rst=>rst, wr_en=>wr_en, d_in=>d_in, d_out=>d_out);
+  --DEFAULT PROCESSES
 
-  process
-  begin
-    wait for period_time;
-
-    -- COLOCAR CASOS DE TESTE AQUI
-    
-    wr_en<='1'; d_in<="0010100011001111"; wait for period_time;
-    wr_en<='1'; d_in<="0010111011001111"; wait for period_time;
-    wr_en<='1'; d_in<="1010110011001111"; wait for period_time;
-    
-    wait;
-  end process;
-
-
-  sim_time_proc: process
-  begin
-    wait for 5 us;
+  sim_time_proc : PROCESS
+  BEGIN
+    WAIT FOR 5 us;
     finished <= '1';
-    wait;
-  end process;
+    WAIT;
+  END PROCESS;
 
-  clk_proc: process
-  begin
-    while finished /= '1' loop
+  clk_proc : PROCESS
+  BEGIN
+    WHILE finished /= '1' LOOP
       clk <= '0';
-      wait for period_time/2;
+      WAIT FOR period_time/2;
       clk <= '1';
-      wait for period_time/2;
-    end loop;
-    wait;
-  end process;
-
-  rst_proc: process
-  begin
-    rst<='1';
-    wait for period_time;
-    rst<='0';
-    wait for period_time * 4;
-    rst<='1';
-    wait;
-  end process;
-end architecture;
+      WAIT FOR period_time/2;
+    END LOOP;
+    WAIT;
+  END PROCESS;
+END ARCHITECTURE;

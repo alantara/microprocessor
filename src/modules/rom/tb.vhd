@@ -1,92 +1,84 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity tb is end;
+ENTITY tb IS END;
 
-architecture arq of tb is
-  signal clk, rst: std_logic := '0';
-  constant period_time: time := 100 ns;
-  signal finished: std_logic := '0';
+ARCHITECTURE arq OF tb IS
+  SIGNAL clk, rst : STD_LOGIC := '0';
+  CONSTANT period_time : TIME := 100 ns;
+  SIGNAL finished : STD_LOGIC := '0';
 
-  -- DECLARAR COMPONENTS E SIGNALS AQUI
+  -- DECLARE COMPONENTS AND SIGNALS HERE
+  COMPONENT rom IS
+    PORT (
+      clk : IN STD_LOGIC;
+      address : IN unsigned(5 DOWNTO 0);
+      data : OUT unsigned(15 DOWNTO 0)
+    );
+  END COMPONENT;
 
+  SIGNAL address : unsigned(5 DOWNTO 0) := "000000";
+  SIGNAL data : unsigned(15 DOWNTO 0) := "0000000000000000";
 
-  component rom is
-    port( 
-          clk: in std_logic;
-          address: in unsigned(5 downto 0);
-          data: out unsigned(15 downto 0) 
-        );
-  end component;
+BEGIN
 
-  signal address : unsigned(5 downto 0) := "000000";
-  signal data : unsigned(15 downto 0) := "0000000000000000";
+  -- COMPONENT HERE
+  mem : rom PORT MAP(clk, address, data);
 
-begin
+  PROCESS
+  BEGIN
+    WAIT FOR period_time;
 
-  -- INSTANCIAR COMPONENTE AQUI
-
-
-  mem : rom port map (clk, address, data);
-
-  process
-  begin
-    wait for period_time;
-
-    -- COLOCAR CASOS DE TESTE AQUI
-
-
+    -- TEST CASES HERE
     address <= "000000";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "000001";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "000010";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "000011";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "000100";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "000101";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "000110";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "010100";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "010101";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "010110";
-    wait for period_time;
+    WAIT FOR period_time;
     address <= "001010";
-    wait for period_time;
+    WAIT FOR period_time;
 
-    wait;
-  end process;
-
-
-  sim_time_proc: process
-  begin
-    wait for 5 us;
+    WAIT;
+  END PROCESS;
+  sim_time_proc : PROCESS
+  BEGIN
+    WAIT FOR 5 us;
     finished <= '1';
-    wait;
-  end process;
+    WAIT;
+  END PROCESS;
 
-  clk_proc: process
-  begin
-    while finished /= '1' loop
+  clk_proc : PROCESS
+  BEGIN
+    WHILE finished /= '1' LOOP
       clk <= '0';
-      wait for period_time/2;
+      WAIT FOR period_time/2;
       clk <= '1';
-      wait for period_time/2;
-    end loop;
-    wait;
-  end process;
+      WAIT FOR period_time/2;
+    END LOOP;
+    WAIT;
+  END PROCESS;
 
-  rst_proc: process
-  begin
-    rst<='1';
-    wait for period_time;
-    rst<='0';
-    wait;
-  end process;
-end architecture;
+  rst_proc : PROCESS
+  BEGIN
+    rst <= '1';
+    WAIT FOR period_time;
+    rst <= '0';
+    WAIT;
+  END PROCESS;
+END ARCHITECTURE;

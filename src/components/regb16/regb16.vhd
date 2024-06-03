@@ -1,31 +1,31 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity regb16 is
-  port(
-  clk, rst, wr_en: in std_logic;
-  data_in: in unsigned(15 downto 0);
-  data_out: out unsigned(15 downto 0)
-);
-end entity;
+ENTITY regb16 IS
+  PORT (
+    clk, rst, wr_en : IN STD_LOGIC;
+    data_in : IN unsigned(15 DOWNTO 0);
+    data_out : OUT unsigned(15 DOWNTO 0)
+  );
+END ENTITY;
 
-architecture a_regb16 of regb16 is
-  signal data: unsigned(15 downto 0) := "0000000000000000";
+ARCHITECTURE a_regb16 OF regb16 IS
+  SIGNAL data : unsigned(15 DOWNTO 0) := "0000000000000000";
 
-begin
-  process(clk, rst, wr_en)
-  begin
+BEGIN
+  PROCESS (clk, rst, wr_en)
+  BEGIN
 
-    if rst='1' then
-      data<="0000000000000000";
-    elsif wr_en='1' then
-      if rising_edge(clk) then
-        data<=data_in;
-      end if;
-    end if;
+    IF rst = '1' THEN
+      data <= "0000000000000000";
+    ELSIF wr_en = '1' THEN
+      IF rising_edge(clk) THEN
+        data <= data_in;
+      END IF;
+    END IF;
 
-  end process;
+  END PROCESS;
 
   data_out <= data;
-end architecture;
+END ARCHITECTURE;

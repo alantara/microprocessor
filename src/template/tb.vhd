@@ -10,20 +10,9 @@ ARCHITECTURE arq OF tb IS
   SIGNAL finished : STD_LOGIC := '0';
 
   -- DECLARE COMPONENTS AND SIGNALS HERE
-
-  SIGNAL state : unsigned(1 DOWNTO 0) := "00";
-
-  COMPONENT state_machine IS
-    PORT (
-      clk, rst : IN STD_LOGIC;
-      state : OUT unsigned(1 DOWNTO 0)
-    );
-  END COMPONENT;
-
 BEGIN
 
   -- COMPONENT HERE
-  sm : state_machine PORT MAP(clk, rst, state);
 
   PROCESS
   BEGIN
@@ -32,29 +21,6 @@ BEGIN
     rst <= '0';
 
     -- TEST CASES HERE
-
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    rst <= '1';
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    rst <= '0';
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    rst <= '1';
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    rst <= '0';
-
     WAIT;
   END PROCESS;
 

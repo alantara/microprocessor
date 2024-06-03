@@ -1,31 +1,31 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity regb1 is
-  port(
-  clk, rst, wr_en: in std_logic;
-  data_in: in std_logic;
-  data_out: out std_logic
-);
-end entity;
+ENTITY regb1 IS
+  PORT (
+    clk, rst, wr_en : IN STD_LOGIC;
+    data_in : IN STD_LOGIC;
+    data_out : OUT STD_LOGIC
+  );
+END ENTITY;
 
-architecture a_regb1 of regb1 is
-  signal data: std_logic := '0';
+ARCHITECTURE a_regb1 OF regb1 IS
+  SIGNAL data : STD_LOGIC := '0';
 
-begin
-  process(clk, rst, wr_en)
-  begin
+BEGIN
+  PROCESS (clk, rst, wr_en)
+  BEGIN
 
-    if rst='1' then
-      data<='0';
-    elsif wr_en='1' then
-      if rising_edge(clk) then
-        data<=data_in;
-      end if;
-    end if;
+    IF rst = '1' THEN
+      data <= '0';
+    ELSIF wr_en = '1' THEN
+      IF rising_edge(clk) THEN
+        data <= data_in;
+      END IF;
+    END IF;
 
-  end process;
+  END PROCESS;
 
   data_out <= data;
-end architecture;
+END ARCHITECTURE;

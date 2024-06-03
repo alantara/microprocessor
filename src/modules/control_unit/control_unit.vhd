@@ -1,88 +1,94 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity control_unit is 
-  port(
-  instruction: in unsigned(15 downto 0);
-  clk, rst : in std_logic;
-  zero_flag, carry_flag, greater_flag: in std_logic;
-  pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, zero_clk, carry_clk: out std_logic;
-  rst_zero, rst_carry, rst_greater: out std_logic;
-  jmp_en, br_en, dr_ld, acc_ld, acc_mv: out std_logic;
-  ula_opcode: out unsigned(2 downto 0)
-);
-end;
-
-architecture a_control_unit of control_unit is
-
-  component state_machine is 
-    port(
-    clk, rst : in std_logic;
-    state : out unsigned(1 downto 0)
+ENTITY control_unit IS
+  PORT (
+    clk, rst : IN STD_LOGIC;
+    instruction : IN unsigned(15 DOWNTO 0);
+    zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
+    pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk : OUT STD_LOGIC;
+    zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
+    dr_ld, dr_mv, acc_ld, acc_mv, jmp_en, br_en : OUT STD_LOGIC;
+    ula_opcode : OUT unsigned(1 DOWNTO 0)
   );
-  end component;
+END ENTITY;
 
-  signal state: unsigned(1 downto 0);
-  signal opcode: unsigned(3 downto 0); 
-  signal rs: unsigned(2 downto 0); 
-begin
-  opcode <= instruction(3 downto 0);
-  rs <= instruction(6 downto 4);
-  
-  sm : state_machine port map(clk, rst, state);
-  
-  pc_clk<='1' when state = "010" else
-          '0';
-  rom_clk<='1' when state = "000" else
-           '0';
-  rom_reg_clk<='1' when state = "001" else
-               '0';
+ARCHITECTURE a_control_unit OF control_unit IS
 
-  jmp_en <= '1' when opcode="0001" else
-            '0';
-  br_en <= '1' when opcode="1001" and zero_flag='1' else
-           '1' when opcode="1010" and greater_flag='0' else
-           '1' when opcode="1011" and greater_flag='1' else
-           '0';
+  COMPONENT state_machine IS
+    PORT (
+      clk, rst : IN STD_LOGIC;
+      state : OUT unsigned(1 DOWNTO 0)
+    );
+  END COMPONENT;
 
+  SIGNAL state : unsigned(1 DOWNTO 0) := "00";
 
-  dr_ld<='1' when opcode="1111" else
-         '0';
-  acc_ld<='1' when opcode="1110" else
-          '0';
-  acc_mv<='1' when opcode="0010" else
-          '1' when opcode="0011" else
-          '0';
-            
-  ula_opcode<="000" when opcode="0100" else
-              "001" when opcode="0101" else
-              "000";
+  SIGNAL if_clk, id_clk, exe_clk : STD_LOGIC;
 
-  zero_clk<='1' when opcode="0100" and state="010" else
-            '1' when opcode="0101" and state="010" else
-            '1' when opcode="0111" and state="010" else
-            '0';
-  carry_clk<='1' when opcode="0100" and state="010" else
-             '1' when opcode="0101" and state="010" else
-             '1' when opcode="0111" and state="010" else
-             '0';
+  SIGNAL opcode : unsigned(3 DOWNTO 0);
+  SIGNAL r : unsigned(2 DOWNTO 0);
 
-  rst_zero<='1' when opcode="1000" and rs="000" else
-            '0';
-  rst_carry<='1' when opcode="1000" and rs="001" else
-            '0';
-  rst_greater<='1' when opcode="1000" and rs="010" else
-             '0';
+BEGIN
+  st : state_machine PORT MAP(clk => clk, rst => rst, state => state);
 
-  dr_clk<='1' when opcode="0010" and state="010" else
-          '1' when opcode="1111" and state="010" else
-          '0';
-  acc_clk<='1' when opcode="0011" and state="010" else
-           '1' when opcode="0100" and state="010" else
-           '1' when opcode="0101" and state="010" else
-           '1' when opcode="0111" and state="010" else
-           '1' when opcode="1110" and state="010" else
-           '0';
+  if_clk <= '1' WHEN state = "00" ELSE
+    '0';
+  id_clk <= '1' WHEN state = "01" ELSE
+    '0';
+  exe_clk <= '1' WHEN state = "10" ELSE
+    '0';
 
-end a_control_unit;
+  opcode <= instruction(3 DOWNTO 0);
+  r <= instruction(6 DOWNTO 4);
+
+  pc_clk <= '1' WHEN exe_clk = '1' ELSE
+    '0';
+  rom_clk <= '1' WHEN if_clk = '1' ELSE
+    '0';
+  rom_reg_clk <= '1' WHEN id_clk = '1' ELSE
+    '0';
+  dr_clk <= '1' WHEN exe_clk = '1' AND opcode = "0010" ELSE
+    '1' WHEN exe_clk = '1' AND opcode = "1111" ELSE
+    '0';
+  acc_clk <= '1' WHEN exe_clk = '1' AND opcode = "0100" ELSE
+    '1' WHEN exe_clk = '1' AND opcode = "0101" ELSE
+    '1' WHEN exe_clk = '1' AND opcode = "0110" ELSE
+    '1' WHEN exe_clk = '1' AND opcode = "0011" ELSE
+    '1' WHEN exe_clk = '1' AND opcode = "1110" ELSE
+    '0';
+  flags_clk <= '1' WHEN exe_clk = '1' AND opcode = "0100" ELSE
+    '1' WHEN exe_clk = '1' AND opcode = "0101" ELSE
+    '1' WHEN exe_clk = '1' AND opcode = "0110" ELSE
+    '0'; --DUVIDOSO
+
+  zero_rst <= '1' WHEN exe_clk = '1' AND opcode = "1000" AND r = "000" ELSE
+    '0';
+  carry_rst <= '1' WHEN exe_clk = '1' AND opcode = "1000" AND r = "001" ELSE
+    '0';
+  greater_rst <= '1' WHEN exe_clk = '1' AND opcode = "1000" AND r = "010" ELSE
+    '0';
+
+  dr_ld <= '1' WHEN opcode = "1111" ELSE
+    '0';
+  dr_mv <= '1' WHEN opcode = "0010" ELSE
+    '0';
+  acc_ld <= '1' WHEN opcode = "1110" ELSE
+    '0';
+  acc_mv <= '1' WHEN opcode = "0011" ELSE
+    '0';
+  jmp_en <= '1' WHEN opcode = "0001" ELSE
+    '0';
+  br_en <= '1' WHEN opcode = "1001" AND zero_flag = '1' ELSE
+    '1' WHEN opcode = "1010" AND zero_flag = '0' ELSE
+    '1' WHEN opcode = "1011" AND zero_flag = '0' AND greater_flag = '0' ELSE
+    '1' WHEN opcode = "1100" AND greater_flag = '1' ELSE
+    '0';
+
+  ula_opcode <= "00" WHEN opcode = "0100" ELSE
+    "01" WHEN opcode = "0101" ELSE
+    "10" WHEN opcode = "0110" ELSE
+    "00";
+
+END ARCHITECTURE;

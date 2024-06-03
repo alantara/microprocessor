@@ -1,88 +1,111 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity tb is end;
+ENTITY tb IS END;
 
-architecture arq of tb is
-  signal clk, rst: std_logic := '0';
-  constant period_time: time := 100 ns;
-  signal finished: std_logic := '0';
+ARCHITECTURE arq OF tb IS
+  SIGNAL clk, rst : STD_LOGIC := '0';
+  CONSTANT period_time : TIME := 100 ns;
+  SIGNAL finished : STD_LOGIC := '0';
 
-  -- DECLARAR COMPONENTS E SIGNALS AQUI
-  
-  signal rs1, rs2: unsigned(2 downto 0) := "000";
-  signal data_wr: unsigned(15 downto 0) := "0000000000000000";
-  signal rd: unsigned(2 downto 0) := "000";
-  signal wr_en: std_logic := '0';
-  signal output_a, output_b: unsigned(15 downto 0); 
+  -- DECLARE COMPONENTS AND SIGNALS HERE
+  SIGNAL rs, rd : unsigned(2 DOWNTO 0) := "000";
+  SIGNAL data_wr : unsigned(15 DOWNTO 0) := "0000000000000000";
+  SIGNAL wr_en : STD_LOGIC := '0';
+  SIGNAL output : unsigned(15 DOWNTO 0);
 
+  COMPONENT data_register IS
+    PORT (
+      rs, rd : IN unsigned(2 DOWNTO 0);
+      data_wr : IN unsigned(15 DOWNTO 0);
+      clk, rst, wr_en : IN STD_LOGIC;
+      output : OUT unsigned(15 DOWNTO 0)
+    );
+  END COMPONENT;
 
-  component data_register is
-    port(
-    rs1, rs2: in unsigned(2 downto 0);
-    data_wr: in unsigned(15 downto 0);
-    rd: in unsigned(2 downto 0);
-    clk, rst, wr_en: in std_logic;
-    output_a, output_b: out unsigned(15 downto 0)
-  );
-  end component;
+BEGIN
 
-begin
+  -- COMPONENT HERE
 
-  -- INSTANCIAR COMPONENTE AQUI
+  uut : data_register PORT MAP(rs, rd, data_wr, clk, rst, wr_en, output);
 
-  uut: data_register port map(rs1, rs2, data_wr, rd, clk, rst, wr_en, output_a, output_b);
+  PROCESS
+  BEGIN
+    rst <= '1';
+    WAIT FOR period_time;
+    rst <= '0';
 
-  process
-  begin
-    wait for period_time;
-
-    -- COLOCAR CASOS DE TESTE AQUI
+    -- TEST CASES HERE
 
     -- registra valores nos registradores
-    rs1<="000"; rs2<="000"; data_wr<="0010000101101001"; rd<="000"; wr_en<='1'; wait for period_time;
-    rs1<="000"; rs2<="000"; data_wr<="0010101101101101"; rd<="001"; wr_en<='1'; wait for period_time;
-    rs1<="000"; rs2<="000"; data_wr<="0010110101101011"; rd<="010"; wr_en<='1'; wait for period_time;
-    rs1<="000"; rs2<="000"; data_wr<="0011111101111101"; rd<="011"; wr_en<='1'; wait for period_time;
-    rs1<="000"; rs2<="000"; data_wr<="0110010101101001"; rd<="100"; wr_en<='1'; wait for period_time;
-    rs1<="000"; rs2<="000"; data_wr<="1110101101101101"; rd<="101"; wr_en<='1'; wait for period_time;
-    rs1<="000"; rs2<="000"; data_wr<="0010110111101011"; rd<="110"; wr_en<='1'; wait for period_time;
-    rs1<="000"; rs2<="000"; data_wr<="0010110101101111"; rd<="111"; wr_en<='1'; wait for period_time;
+    wr_en <= '1';
+
+    data_wr <= "0010000101101001";
+    rd <= "000";
+    WAIT FOR period_time;
+    data_wr <= "0010100101101001";
+    rd <= "001";
+    WAIT FOR period_time;
+    data_wr <= "0010010101101001";
+    rd <= "010";
+    WAIT FOR period_time;
+    data_wr <= "0000000101001001";
+    rd <= "011";
+    WAIT FOR period_time;
+    data_wr <= "0000000101101011";
+    rd <= "100";
+    WAIT FOR period_time;
+    data_wr <= "0010000100000000";
+    rd <= "101";
+    WAIT FOR period_time;
+    data_wr <= "0011100101101001";
+    rd <= "110";
+    WAIT FOR period_time;
+    data_wr <= "0011111101101001";
+    rd <= "111";
+    WAIT FOR period_time;
 
     -- le os valores de cada registrador
-    rs1<="000"; rs2<="001"; data_wr<="0000000000000000"; rd<="000"; wr_en<='0'; wait for period_time;
-    rs1<="010"; rs2<="011"; data_wr<="0000000000000000"; rd<="000"; wr_en<='0'; wait for period_time;
-    rs1<="100"; rs2<="101"; data_wr<="0000000000000000"; rd<="000"; wr_en<='0'; wait for period_time;
-    rs1<="110"; rs2<="111"; data_wr<="0000000000000000"; rd<="000"; wr_en<='0'; wait for period_time;
+    wr_en <= '0';
 
-    wait;
-  end process;
+    rs <= "000";
+    WAIT FOR period_time;
+    rs <= "001";
+    WAIT FOR period_time;
+    rs <= "010";
+    WAIT FOR period_time;
+    rs <= "011";
+    WAIT FOR period_time;
+    rs <= "100";
+    WAIT FOR period_time;
+    rs <= "101";
+    WAIT FOR period_time;
+    rs <= "110";
+    WAIT FOR period_time;
+    rs <= "111";
+    WAIT FOR period_time;
 
+    WAIT;
+  END PROCESS;
 
-  sim_time_proc: process
-  begin
-    wait for 5 us;
+  --DEFAULT PROCESSES
+
+  sim_time_proc : PROCESS
+  BEGIN
+    WAIT FOR 5 us;
     finished <= '1';
-    wait;
-  end process;
+    WAIT;
+  END PROCESS;
 
-  clk_proc: process
-  begin
-    while finished /= '1' loop
+  clk_proc : PROCESS
+  BEGIN
+    WHILE finished /= '1' LOOP
       clk <= '0';
-      wait for period_time/2;
+      WAIT FOR period_time/2;
       clk <= '1';
-      wait for period_time/2;
-    end loop;
-    wait;
-  end process;
-
-  rst_proc: process
-  begin
-    rst<='1';
-    wait for period_time;
-    rst<='0';
-    wait;
-  end process;
-end architecture;
+      WAIT FOR period_time/2;
+    END LOOP;
+    WAIT;
+  END PROCESS;
+END ARCHITECTURE;

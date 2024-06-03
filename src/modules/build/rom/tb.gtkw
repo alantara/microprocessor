@@ -1,0 +1,27 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Mon May 27 03:10:00 2024
+[*]
+[dumpfile] "/home/alan/Projects/microprocessor/src/components/build/rom/tb.ghw"
+[dumpfile_mtime] "Mon May 27 03:09:21 2024"
+[dumpfile_size] 1442
+[savefile] "/home/alan/Projects/microprocessor/src/components/build/rom/tb.gtkw"
+[timestart] 0
+[size] 1850 1016
+[pos] -101 -101
+*-29.401859 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb.
+[sst_width] 233
+[signals_width] 126
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+top.tb.rst
+top.tb.clk
+@22
+#{top.tb.address[5:0]} top.tb.address[5] top.tb.address[4] top.tb.address[3] top.tb.address[2] top.tb.address[1] top.tb.address[0]
+@23
+#{top.tb.data[15:0]} top.tb.data[15] top.tb.data[14] top.tb.data[13] top.tb.data[12] top.tb.data[11] top.tb.data[10] top.tb.data[9] top.tb.data[8] top.tb.data[7] top.tb.data[6] top.tb.data[5] top.tb.data[4] top.tb.data[3] top.tb.data[2] top.tb.data[1] top.tb.data[0]
+[pattern_trace] 1
+[pattern_trace] 0

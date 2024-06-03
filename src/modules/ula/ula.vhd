@@ -1,59 +1,58 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity ula is
-  port(
-  a, b: in unsigned(15 downto 0);
-  opcode: in unsigned(2 downto 0);
-  carry_flag: in std_logic;
-  zero_out, carry_out, greater_out: out std_logic;
-  output: out unsigned(15 downto 0)
-);
-end entity;
+ENTITY ula IS
+  PORT (
+    a, b : IN unsigned(15 DOWNTO 0);
+    borrow : IN STD_LOGIC;
+    opcode : IN unsigned(1 DOWNTO 0);
+    zero_flag, carry_flag, greater_flag : OUT STD_LOGIC;
+    output : OUT unsigned(15 DOWNTO 0)
+  );
+END ENTITY;
 
-architecture arq of ula is
-  signal m0, m1, m2, m3, m4, m5, m6, m7: unsigned(15 downto 0) := "0000000000000000";
-  
-  signal carry_soma, carry_sub: std_logic := '0';
-  signal a17, b17, soma: unsigned(16 downto 0) := "00000000000000000";
-begin
+ARCHITECTURE a_ula OF ula IS
 
-  a17<= '0' & a;
-  b17<= '0' & b;
-  soma<= a17+b17;
-  
-  m0<=soma(15 downto 0);
-  m1<=a-b;
-  m2<=a or b;
-  m3<=a and b;
-  m4<=not a;
-  m5<='0' & a(15 downto 1); -- shift right (a >> 1)
-  m6<=a(14 downto 0) & '0'; -- shift left  (a << 1)
+  SIGNAL m, m0, m1, m2, m3 : unsigned(15 DOWNTO 0) := "0000000000000000";
 
-  m7<=a-b-1 when carry_flag='1' else
-      a-b;
+  SIGNAL carry_sum, carry_sub : STD_LOGIC;
+  SIGNAL a17, b17, sum17 : unsigned(16 DOWNTO 0) := "00000000000000000";
 
-  zero_out<='1' when m1="0000000000000000" else '0';
-  carry_soma<=soma(16);
+BEGIN
 
-  carry_sub<='0' when b<=a else
-             '1';
+  --Carry Sum
+  a17 <= '0' & a;
+  b17 <= '0' & b;
+  sum17 <= a17 + b17;
+  carry_sum <= sum17(16);
 
-  carry_out<=carry_soma when opcode="000" else
-         carry_sub;
+  --Carry Sub
+  carry_sub <= '0' WHEN b <= a ELSE
+    '1';
 
-  greater_out<='1' when signed(m1)>"0000000000000000" else
-               '0';
+  --ula Flags
+  carry_flag <= carry_sum WHEN opcode = "00" ELSE
+    carry_sub WHEN opcode = "01" ELSE
+    '0';
+  zero_flag <= '1' WHEN m = "0000000000000000" ELSE
+    '0';
+  greater_flag <= '1' WHEN signed(m) > "0000000000000000" ELSE
+    '0';
 
-  output <= m0 when opcode="000" else
-            m1 when opcode="001" else
-            m2 when opcode="010" else
-            m3 when opcode="011" else
-            m4 when opcode="100" else
-            m5 when opcode="101" else
-            m6 when opcode="110" else
-            m7 when opcode="111" else
-            "0000000000000000";
+  --Default Operations
+  m0 <= a + b;
+  m1 <= a - b;
+  m2 <= a - b - 1 WHEN borrow = '1' ELSE
+    a - b;
+  m3 <= a NAND b;
 
-end architecture;
+  m <= m0 WHEN opcode = "00" ELSE
+    m1 WHEN opcode = "01" ELSE
+    m2 WHEN opcode = "10" ELSE
+    m3 WHEN opcode = "11" ELSE
+    "0000000000000000";
+
+  output <= m;
+
+END ARCHITECTURE;

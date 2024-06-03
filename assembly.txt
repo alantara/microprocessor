@@ -1,0 +1,28 @@
+1. LD R3 0
+2. LD R4 0
+3. ADD R4 R3 R4
+4. ADDI R3 R3 1
+5. BLT R3 30 -2
+6. ADD R5 R4 zero
+
+------
+
+0.  LD R3 0
+
+1.  LD R4 0
+
+2.  MOV A R3
+3.  ADD A R4
+4.  MOV R4 A
+
+5.  LD A 1
+6.  ADD A R3
+7.  MOV R3 A
+
+8.  CLR 0
+9. LD A 30
+10. SUB R3 A
+11. BLT -7
+
+12. MOV A R4
+13. MOV R5 A

@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue May 28 00:54:57 2024
+[*]
+[dumpfile] "/home/alan/Projects/microprocessor/src/modules/build/data_register/tb.ghw"
+[dumpfile_mtime] "Tue May 28 00:53:59 2024"
+[dumpfile_size] 3454
+[savefile] "/home/alan/Projects/microprocessor/src/modules/build/data_register/tb.gtkw"
+[timestart] 0
+[size] 1850 1016
+[pos] -101 -101
+*-29.409906 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.tb.
+[sst_width] 233
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+top.tb.rst
+top.tb.clk
+top.tb.wr_en
+#{top.tb.rd[2:0]} top.tb.rd[2] top.tb.rd[1] top.tb.rd[0]
+@22
+#{top.tb.data_wr[15:0]} top.tb.data_wr[15] top.tb.data_wr[14] top.tb.data_wr[13] top.tb.data_wr[12] top.tb.data_wr[11] top.tb.data_wr[10] top.tb.data_wr[9] top.tb.data_wr[8] top.tb.data_wr[7] top.tb.data_wr[6] top.tb.data_wr[5] top.tb.data_wr[4] top.tb.data_wr[3] top.tb.data_wr[2] top.tb.data_wr[1] top.tb.data_wr[0]
+@29
+#{top.tb.rs[2:0]} top.tb.rs[2] top.tb.rs[1] top.tb.rs[0]
+@22
+#{top.tb.output[15:0]} top.tb.output[15] top.tb.output[14] top.tb.output[13] top.tb.output[12] top.tb.output[11] top.tb.output[10] top.tb.output[9] top.tb.output[8] top.tb.output[7] top.tb.output[6] top.tb.output[5] top.tb.output[4] top.tb.output[3] top.tb.output[2] top.tb.output[1] top.tb.output[0]
+[pattern_trace] 1
+[pattern_trace] 0

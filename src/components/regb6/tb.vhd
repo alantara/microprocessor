@@ -10,20 +10,22 @@ ARCHITECTURE arq OF tb IS
   SIGNAL finished : STD_LOGIC := '0';
 
   -- DECLARE COMPONENTS AND SIGNALS HERE
+  SIGNAL wr_en : STD_LOGIC := '0';
+  SIGNAL data_in : unsigned(5 DOWNTO 0) := "000000";
+  SIGNAL data_out : unsigned(5 DOWNTO 0) := "000000";
 
-  SIGNAL state : unsigned(1 DOWNTO 0) := "00";
-
-  COMPONENT state_machine IS
+  COMPONENT regb6 IS
     PORT (
-      clk, rst : IN STD_LOGIC;
-      state : OUT unsigned(1 DOWNTO 0)
+      clk, rst, wr_en : IN STD_LOGIC;
+      data_in : IN unsigned(5 DOWNTO 0);
+      data_out : OUT unsigned(5 DOWNTO 0)
     );
   END COMPONENT;
 
 BEGIN
 
   -- COMPONENT HERE
-  sm : state_machine PORT MAP(clk, rst, state);
+  uut : regb6 PORT MAP(clk, rst, wr_en, data_in, data_out);
 
   PROCESS
   BEGIN
@@ -32,28 +34,15 @@ BEGIN
     rst <= '0';
 
     -- TEST CASES HERE
-
+    wr_en <= '1';
+    data_in <= "000101";
     WAIT FOR period_time;
+    wr_en <= '1';
+    data_in <= "100001";
     WAIT FOR period_time;
+    wr_en <= '1';
+    data_in <= "110101";
     WAIT FOR period_time;
-    rst <= '1';
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    rst <= '0';
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    rst <= '1';
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    WAIT FOR period_time;
-    rst <= '0';
 
     WAIT;
   END PROCESS;
