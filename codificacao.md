@@ -59,10 +59,12 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 | ADD       | 0100   |
 | SUB       | 0101   |
 | SUBB      | 0110   |
-| CLR F     | 1000   |
+| SW R, R   | 0111   |
+| LW D, R   | 1000   |
 | BEQ       | 1001   |
 | BNE       | 1010   |
 | BLT       | 1011   |
 | BGT       | 1100   |
+| CLR F     | 1101   |
 | LD A, C   | 1110   |
 | LD R, C   | 1111   |

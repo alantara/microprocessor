@@ -15,9 +15,9 @@ ARCHITECTURE a_processador OF processador IS
       clk, rst : IN STD_LOGIC;
       instruction : IN unsigned(15 DOWNTO 0);
       zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
-      pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk : OUT STD_LOGIC;
+      pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, ram_clk, addr_ram_clk : OUT STD_LOGIC;
       zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
-      dr_ld, dr_mv, acc_ld, acc_mv, jmp_en, br_en : OUT STD_LOGIC;
+      dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : OUT STD_LOGIC;
       ula_opcode : OUT unsigned(1 DOWNTO 0)
     );
   END COMPONENT;
@@ -73,11 +73,21 @@ ARCHITECTURE a_processador OF processador IS
     );
   END COMPONENT;
 
+  COMPONENT ram IS
+    PORT (
+      clk : IN STD_LOGIC;
+      endereco : IN unsigned(6 DOWNTO 0);
+      wr_en : IN STD_LOGIC;
+      dado_in : IN unsigned(15 DOWNTO 0);
+      dado_out : OUT unsigned(15 DOWNTO 0)
+    );
+  END COMPONENT;
+
   --SIGNALS 
   --uc
-  SIGNAL pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk : STD_LOGIC;
+  SIGNAL pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, ram_clk, addr_ram_clk : STD_LOGIC;
   SIGNAL zero_rst, carry_rst, greater_rst : STD_LOGIC;
-  SIGNAL dr_ld, dr_mv, acc_ld, acc_mv, jmp_en, br_en : STD_LOGIC;
+  SIGNAL dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : STD_LOGIC;
   SIGNAL ula_opcode : unsigned(1 DOWNTO 0);
 
   --flags
@@ -90,12 +100,16 @@ ARCHITECTURE a_processador OF processador IS
   SIGNAL instruction_fetch, instruction : unsigned(15 DOWNTO 0);
 
   SIGNAL opcode : unsigned(3 DOWNTO 0);
-  SIGNAL r : unsigned(2 DOWNTO 0);
+  SIGNAL r, r2 : unsigned(2 DOWNTO 0);
   SIGNAL imm : unsigned(8 DOWNTO 0);
 
   SIGNAL ext_imm : unsigned (15 DOWNTO 0);
 
+  --ram
+  SIGNAL ram_out, addr_ram_out : unsigned (15 DOWNTO 0);
+
   --data register
+  SIGNAL dr_rs : unsigned(2 DOWNTO 0);
   SIGNAL dr_in, dr_out : unsigned(15 DOWNTO 0);
 
   --acc
@@ -106,7 +120,7 @@ ARCHITECTURE a_processador OF processador IS
   SIGNAL ula_out : unsigned(15 DOWNTO 0);
 
 BEGIN
-  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, acc_ld, acc_mv, jmp_en, br_en, ula_opcode);
+  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, ram_clk, addr_ram_clk, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en, ula_opcode);
 
   carry : regb1 PORT MAP(clk => flags_clk, rst => carry_rst, wr_en => '1', data_in => ula_carry, data_out => carry_flag);
   zero : regb1 PORT MAP(clk => flags_clk, rst => zero_rst, wr_en => '1', data_in => ula_zero, data_out => zero_flag);
@@ -124,15 +138,23 @@ BEGIN
 
   opcode <= instruction(3 DOWNTO 0);
   r <= instruction(6 DOWNTO 4);
+  r2 <= instruction(9 DOWNTO 7);
   imm <= instruction(15 DOWNTO 7);
 
   ext_imm <= imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm;
 
+  --RAM
+  addr_ram : regb16 PORT MAP(clk => addr_ram_clk, rst => rst, wr_en => '1', data_in => dr_out, data_out => addr_ram_out);
+  memram : ram PORT MAP(clk => ram_clk, endereco => addr_ram_out(6 DOWNTO 0), wr_en => '1', dado_in => dr_out, dado_out => ram_out);
+
   --DR
   dr_in <= ext_imm WHEN dr_ld = '1' ELSE
     acc_out WHEN dr_mv = '1' ELSE
+    ram_out WHEN dr_lw = '1' ELSE
     "0000000000000000";
-  dr : data_register PORT MAP(rs => r, rd => r, data_wr => dr_in, clk => dr_clk, rst => rst, wr_en => '1', output => dr_out);
+  dr_rs <= r2 WHEN dr_ram = '1' ELSE
+    r;
+  dr : data_register PORT MAP(rs => dr_rs, rd => r, data_wr => dr_in, clk => dr_clk, rst => rst, wr_en => '1', output => dr_out);
 
   --ACC
   acc_in <= ext_imm WHEN acc_ld = '1' ELSE

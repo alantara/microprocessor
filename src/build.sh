@@ -23,6 +23,8 @@ ghdl -a ../../modules/control_unit/control_unit.vhd
 ghdl -e control_unit
 ghdl -a ../../modules/rom/rom.vhd
 ghdl -e rom
+ghdl -a ../../modules/ram/ram.vhd
+ghdl -e ram
 ghdl -a ../../modules/data_register/data_register.vhd
 ghdl -e data_register
 ghdl -a ../../modules/ula/ula.vhd

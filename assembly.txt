@@ -1,28 +1,33 @@
-1. LD R3 0
-2. LD R4 0
-3. ADD R4 R3 R4
-4. ADDI R3 R3 1
-5. BLT R3 30 -2
-6. ADD R5 R4 zero
-
-------
-
-0.  LD R3 0
-
-1.  LD R4 0
-
-2.  MOV A R3
-3.  ADD A R4
-4.  MOV R4 A
-
-5.  LD A 1
-6.  ADD A R3
-7.  MOV R3 A
-
-8.  CLR 0
-9. LD A 30
-10. SUB R3 A
-11. BLT -7
-
-12. MOV A R4
-13. MOV R5 A
+LD R1, 0x00FF
+LD R2, 0x01FF   => negative (sig ext)  => R2 = 0xFFFF
+LD R3, 0x00AF
+LD R4, 0x001E
+LD R5, 0x0158   => negative (sig ext)  => R5 = 0xFF58
+NOP
+LD R6, 0x0021   => RAM iterator
+NOP
+LD R7, 0x0029   => SW pointer
+SW R1, R7
+LD R7, 0x002A   => SW pointer
+SW R2, R7
+LD R7, 0x002C   => SW pointer
+SW R3, R7
+LD R7, 0x002F   => SW pointer
+SW R4, R7
+LD R7, 0x0035   => SW pointer
+SW R5, R7
+NOP
+LD R1, 0x0000
+NOP
+LD A, 0x0001
+ADD A, R6
+MOV R6, A
+LW R1, R6
+CLR Z           => clear ZERO flag
+LD A, 0x0035
+SUB A, R6
+BNE 0xF9
+NOP
+MOV A, R1
+ADD A, R3
+MOV R4, A

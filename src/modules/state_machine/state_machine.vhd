@@ -19,7 +19,7 @@ BEGIN
     IF rst = '1' THEN
       machine_state <= "00";
     ELSIF rising_edge(clk) THEN
-      IF machine_state = "10" THEN
+      IF machine_state = "11" THEN
         machine_state <= "00";
       ELSE
         machine_state <= machine_state + 1;
