@@ -7,7 +7,7 @@ ENTITY control_unit IS
     clk, rst : IN STD_LOGIC;
     instruction : IN unsigned(15 DOWNTO 0);
     zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
-    pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, ram_clk, addr_ram_clk : OUT STD_LOGIC;
+    if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : OUT STD_LOGIC;
     zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
     dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : OUT STD_LOGIC;
     ula_opcode : OUT unsigned(1 DOWNTO 0)
@@ -24,8 +24,6 @@ ARCHITECTURE a_control_unit OF control_unit IS
   END COMPONENT;
 
   SIGNAL state : unsigned(1 DOWNTO 0) := "00";
-
-  SIGNAL if_clk, id_clk, preexe_clk, exe_clk : STD_LOGIC;
 
   SIGNAL opcode : unsigned(3 DOWNTO 0);
   SIGNAL r : unsigned(2 DOWNTO 0);
@@ -45,37 +43,31 @@ BEGIN
   opcode <= instruction(3 DOWNTO 0);
   r <= instruction(6 DOWNTO 4);
 
-  pc_clk <= '1' WHEN exe_clk = '1' ELSE
+  dr_wr_en <= '1' WHEN opcode = "0010" ELSE
+    '1' WHEN opcode = "1000" ELSE
+    '1' WHEN opcode = "1111" ELSE
     '0';
-  rom_clk <= '1' WHEN if_clk = '1' ELSE
+  acc_wr_en <= '1' WHEN opcode = "0100" ELSE
+    '1' WHEN opcode = "0101" ELSE
+    '1' WHEN opcode = "0110" ELSE
+    '1' WHEN opcode = "0011" ELSE
+    '1' WHEN opcode = "1110" ELSE
     '0';
-  rom_reg_clk <= '1' WHEN id_clk = '1' ELSE
+  flags_wr_en <= '1' WHEN opcode = "0100" ELSE
+    '1' WHEN opcode = "0101" ELSE
+    '1' WHEN opcode = "0110" ELSE
     '0';
-  dr_clk <= '1' WHEN exe_clk = '1' AND opcode = "0010" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "1000" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "1111" ELSE
+  ram_wr_en <= '1' WHEN opcode = "0111" ELSE
     '0';
-  acc_clk <= '1' WHEN exe_clk = '1' AND opcode = "0100" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "0101" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "0110" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "0011" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "1110" ELSE
-    '0';
-  flags_clk <= '1' WHEN exe_clk = '1' AND opcode = "0100" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "0101" ELSE
-    '1' WHEN exe_clk = '1' AND opcode = "0110" ELSE
-    '0'; --DUVIDOSO
-  ram_clk <= '1' WHEN exe_clk = '1' AND opcode = "0111" ELSE
-    '0';
-  addr_ram_clk <= '1' WHEN preexe_clk = '1' AND opcode = "0111" ELSE
-    '1' WHEN preexe_clk = '1' AND opcode = "1000" ELSE
+  addr_ram_wr_en <= '1' WHEN opcode = "0111" ELSE
+    '1' WHEN opcode = "1000" ELSE
     '0';
 
-  zero_rst <= '1' WHEN exe_clk = '1' AND opcode = "1101" AND r = "000" ELSE
+  zero_rst <= '1' WHEN state = "11" AND opcode = "1101" AND r = "000" ELSE
     '0';
-  carry_rst <= '1' WHEN exe_clk = '1' AND opcode = "1101" AND r = "001" ELSE
+  carry_rst <= '1' WHEN state = "11" AND opcode = "1101" AND r = "001" ELSE
     '0';
-  greater_rst <= '1' WHEN exe_clk = '1' AND opcode = "1101" AND r = "010" ELSE
+  greater_rst <= '1' WHEN state = "11" AND opcode = "1101" AND r = "010" ELSE
     '0';
 
   dr_ld <= '1' WHEN opcode = "1111" ELSE
@@ -84,8 +76,8 @@ BEGIN
     '0';
   dr_lw <= '1' WHEN opcode = "1000" ELSE
     '0';
-  dr_ram <= '1' WHEN id_clk = '1' AND opcode = "0111" ELSE
-    '1' WHEN id_clk = '1' AND opcode = "1000" ELSE
+  dr_ram <= '1' WHEN state = "01" AND opcode = "0111" ELSE
+    '1' WHEN state = "01" AND opcode = "1000" ELSE
     '0';
   acc_ld <= '1' WHEN opcode = "1110" ELSE
     '0';

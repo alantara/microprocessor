@@ -1,18 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri May 31 19:31:08 2024
+[*] Fri Jun  7 18:07:05 2024
 [*]
-[dumpfile] "/home/alan/Projects/microprocessor/src/top_level/build/tb.ghw"
-[dumpfile_mtime] "Fri May 31 19:30:50 2024"
-[dumpfile_size] 159890
-[savefile] "/home/alan/Projects/microprocessor/src/top_level/build/tb.gtkw"
+[dumpfile] "/home/alan/Github/microprocessor/src/top_level/build/tb.ghw"
+[dumpfile_mtime] "Fri Jun  7 17:54:29 2024"
+[dumpfile_size] 148189
+[savefile] "/home/alan/Github/microprocessor/src/top_level/build/tb.gtkw"
 [timestart] 0
 [size] 1850 1016
 [pos] -1 -1
-*-34.321842 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-34.321842 4750000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.processador_tb.
 [treeopen] top.processador_tb.uut.
+[treeopen] top.processador_tb.uut.acc.
 [treeopen] top.processador_tb.uut.dr.
 [treeopen] top.processador_tb.uut.uc.
 [sst_width] 233

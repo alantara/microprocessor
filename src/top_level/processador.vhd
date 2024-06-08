@@ -15,7 +15,7 @@ ARCHITECTURE a_processador OF processador IS
       clk, rst : IN STD_LOGIC;
       instruction : IN unsigned(15 DOWNTO 0);
       zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
-      pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, ram_clk, addr_ram_clk : OUT STD_LOGIC;
+      if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : OUT STD_LOGIC;
       zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
       dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : OUT STD_LOGIC;
       ula_opcode : OUT unsigned(1 DOWNTO 0)
@@ -85,7 +85,7 @@ ARCHITECTURE a_processador OF processador IS
 
   --SIGNALS 
   --uc
-  SIGNAL pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, ram_clk, addr_ram_clk : STD_LOGIC;
+  SIGNAL if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : STD_LOGIC;
   SIGNAL zero_rst, carry_rst, greater_rst : STD_LOGIC;
   SIGNAL dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : STD_LOGIC;
   SIGNAL ula_opcode : unsigned(1 DOWNTO 0);
@@ -120,21 +120,21 @@ ARCHITECTURE a_processador OF processador IS
   SIGNAL ula_out : unsigned(15 DOWNTO 0);
 
 BEGIN
-  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, pc_clk, rom_clk, rom_reg_clk, dr_clk, acc_clk, flags_clk, ram_clk, addr_ram_clk, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en, ula_opcode);
+  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en, ula_opcode);
 
-  carry : regb1 PORT MAP(clk => flags_clk, rst => carry_rst, wr_en => '1', data_in => ula_carry, data_out => carry_flag);
-  zero : regb1 PORT MAP(clk => flags_clk, rst => zero_rst, wr_en => '1', data_in => ula_zero, data_out => zero_flag);
-  greater : regb1 PORT MAP(clk => flags_clk, rst => greater_rst, wr_en => '1', data_in => ula_greater, data_out => greater_flag);
+  carry : regb1 PORT MAP(clk => exe_clk, rst => carry_rst, wr_en => flags_wr_en, data_in => ula_carry, data_out => carry_flag);
+  zero : regb1 PORT MAP(clk => exe_clk, rst => zero_rst, wr_en => flags_wr_en, data_in => ula_zero, data_out => zero_flag);
+  greater : regb1 PORT MAP(clk => exe_clk, rst => greater_rst, wr_en => flags_wr_en, data_in => ula_greater, data_out => greater_flag);
 
   --PC
   pc_in <= ext_imm(5 DOWNTO 0) WHEN jmp_en = '1' ELSE
     address + ext_imm(5 DOWNTO 0) WHEN br_en = '1' ELSE
     address + 1;
-  pc : regb6 PORT MAP(clk => pc_clk, rst => rst, wr_en => '1', data_in => pc_in, data_out => address);
+  pc : regb6 PORT MAP(clk => exe_clk, rst => rst, wr_en => '1', data_in => pc_in, data_out => address);
 
   --ROM
-  mem : rom PORT MAP(clk => rom_clk, address => address, data => instruction_fetch);
-  memr : regb16 PORT MAP(clk => rom_reg_clk, rst => rst, wr_en => '1', data_in => instruction_fetch, data_out => instruction);
+  mem : rom PORT MAP(clk => if_clk, address => address, data => instruction_fetch);
+  memr : regb16 PORT MAP(clk => id_clk, rst => rst, wr_en => '1', data_in => instruction_fetch, data_out => instruction);
 
   opcode <= instruction(3 DOWNTO 0);
   r <= instruction(6 DOWNTO 4);
@@ -144,8 +144,7 @@ BEGIN
   ext_imm <= imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm;
 
   --RAM
-  addr_ram : regb16 PORT MAP(clk => addr_ram_clk, rst => rst, wr_en => '1', data_in => dr_out, data_out => addr_ram_out);
-  memram : ram PORT MAP(clk => ram_clk, endereco => addr_ram_out(6 DOWNTO 0), wr_en => '1', dado_in => dr_out, dado_out => ram_out);
+  memram : ram PORT MAP(clk => exe_clk, endereco => addr_ram_out(6 DOWNTO 0), wr_en => ram_wr_en, dado_in => dr_out, dado_out => ram_out);
 
   --DR
   dr_in <= ext_imm WHEN dr_ld = '1' ELSE
@@ -154,13 +153,13 @@ BEGIN
     "0000000000000000";
   dr_rs <= r2 WHEN dr_ram = '1' ELSE
     r;
-  dr : data_register PORT MAP(rs => dr_rs, rd => r, data_wr => dr_in, clk => dr_clk, rst => rst, wr_en => '1', output => dr_out);
+  dr : data_register PORT MAP(rs => dr_rs, rd => r, data_wr => dr_in, clk => exe_clk, rst => rst, wr_en => dr_wr_en, output => dr_out);
 
   --ACC
   acc_in <= ext_imm WHEN acc_ld = '1' ELSE
     dr_out WHEN acc_mv = '1' ELSE
     ula_out;
-  acc : regb16 PORT MAP(clk => acc_clk, rst => rst, wr_en => '1', data_in => acc_in, data_out => acc_out);
+  acc : regb16 PORT MAP(clk => exe_clk, rst => rst, wr_en => acc_wr_en, data_in => acc_in, data_out => acc_out);
 
   --ULA
   ul : ula PORT MAP(a => dr_out, b => acc_out, borrow => carry_flag, opcode => ula_opcode, carry_flag => ula_carry, zero_flag => ula_zero, greater_flag => ula_greater, output => ula_out);
