@@ -17,7 +17,7 @@ ARCHITECTURE a_processador OF processador IS
       zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
       if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : OUT STD_LOGIC;
       zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
-      dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : OUT STD_LOGIC;
+      dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en : OUT STD_LOGIC;
       ula_opcode : OUT unsigned(1 DOWNTO 0)
     );
   END COMPONENT;
@@ -87,7 +87,7 @@ ARCHITECTURE a_processador OF processador IS
   --uc
   SIGNAL if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : STD_LOGIC;
   SIGNAL zero_rst, carry_rst, greater_rst : STD_LOGIC;
-  SIGNAL dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : STD_LOGIC;
+  SIGNAL dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en : STD_LOGIC;
   SIGNAL ula_opcode : unsigned(1 DOWNTO 0);
 
   --flags
@@ -120,7 +120,7 @@ ARCHITECTURE a_processador OF processador IS
   SIGNAL ula_out : unsigned(15 DOWNTO 0);
 
 BEGIN
-  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en, ula_opcode);
+  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_opcode);
 
   carry : regb1 PORT MAP(clk => exe_clk, rst => carry_rst, wr_en => flags_wr_en, data_in => ula_carry, data_out => carry_flag);
   zero : regb1 PORT MAP(clk => exe_clk, rst => zero_rst, wr_en => flags_wr_en, data_in => ula_zero, data_out => zero_flag);
@@ -141,13 +141,16 @@ BEGIN
   r2 <= instruction(9 DOWNTO 7);
   imm <= instruction(15 DOWNTO 7);
 
-  ext_imm <= imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm;
+  ext_imm <= imm(7 DOWNTO 0) & "00000000" WHEN lu_en = '1' ELSE
+    imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm(8) & imm;
 
   --RAM
+  addr_ram : regb16 PORT MAP(clk => preexe_clk, rst => rst, wr_en => addr_ram_wr_en, data_in => dr_out, data_out => addr_ram_out);
   memram : ram PORT MAP(clk => exe_clk, endereco => addr_ram_out(6 DOWNTO 0), wr_en => ram_wr_en, dado_in => dr_out, dado_out => ram_out);
 
   --DR
   dr_in <= ext_imm WHEN dr_ld = '1' ELSE
+    ext_imm WHEN lu_en = '1' ELSE
     acc_out WHEN dr_mv = '1' ELSE
     ram_out WHEN dr_lw = '1' ELSE
     "0000000000000000";

@@ -9,7 +9,7 @@ ENTITY control_unit IS
     zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
     if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : OUT STD_LOGIC;
     zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
-    dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, jmp_en, br_en : OUT STD_LOGIC;
+    dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en : OUT STD_LOGIC;
     ula_opcode : OUT unsigned(1 DOWNTO 0)
   );
 END ENTITY;
@@ -45,6 +45,7 @@ BEGIN
 
   dr_wr_en <= '1' WHEN opcode = "0010" ELSE
     '1' WHEN opcode = "1000" ELSE
+    '1' WHEN opcode = "1001" ELSE
     '1' WHEN opcode = "1111" ELSE
     '0';
   acc_wr_en <= '1' WHEN opcode = "0100" ELSE
@@ -83,12 +84,14 @@ BEGIN
     '0';
   acc_mv <= '1' WHEN opcode = "0011" ELSE
     '0';
+  lu_en <= '1' WHEN opcode = "1001" ELSE
+    '0';
   jmp_en <= '1' WHEN opcode = "0001" ELSE
     '0';
-  br_en <= '1' WHEN opcode = "1001" AND zero_flag = '1' ELSE
-    '1' WHEN opcode = "1010" AND zero_flag = '0' ELSE
-    '1' WHEN opcode = "1011" AND zero_flag = '0' AND greater_flag = '0' ELSE
-    '1' WHEN opcode = "1100" AND greater_flag = '1' ELSE
+  br_en <= '1' WHEN opcode = "1100" AND r = "000" AND zero_flag = '1' ELSE
+    '1' WHEN opcode = "1100" AND r = "111" AND zero_flag = '0' ELSE
+    '1' WHEN opcode = "1100" AND r = "101" AND zero_flag = '0' AND greater_flag = '0' ELSE
+    '1' WHEN opcode = "1100" AND r = "010" AND greater_flag = '1' ELSE
     '0';
 
   ula_opcode <= "00" WHEN opcode = "0100" ELSE
