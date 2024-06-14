@@ -6,7 +6,7 @@ ENTITY processador_tb IS END;
 
 ARCHITECTURE arq OF processador_tb IS
   SIGNAL clk, rst : STD_LOGIC := '0';
-  CONSTANT period_time : TIME := 100 ns;
+  CONSTANT period_time : TIME := 50 ns;
   SIGNAL finished : STD_LOGIC := '0';
 
   -- DECLARE COMPONENTS AND SIGNALS HERE
@@ -37,7 +37,7 @@ BEGIN
 
   sim_time_proc : PROCESS
   BEGIN
-    WAIT FOR 5000 us;
+    WAIT FOR 1000 us;
     finished <= '1';
     WAIT;
   END PROCESS;

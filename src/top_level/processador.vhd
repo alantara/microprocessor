@@ -76,7 +76,7 @@ ARCHITECTURE a_processador OF processador IS
   COMPONENT ram IS
     PORT (
       clk : IN STD_LOGIC;
-      endereco : IN unsigned(6 DOWNTO 0);
+      endereco : IN unsigned(15 DOWNTO 0);
       wr_en : IN STD_LOGIC;
       dado_in : IN unsigned(15 DOWNTO 0);
       dado_out : OUT unsigned(15 DOWNTO 0)
@@ -146,7 +146,7 @@ BEGIN
 
   --RAM
   addr_ram : regb16 PORT MAP(clk => preexe_clk, rst => rst, wr_en => addr_ram_wr_en, data_in => dr_out, data_out => addr_ram_out);
-  memram : ram PORT MAP(clk => exe_clk, endereco => addr_ram_out(6 DOWNTO 0), wr_en => ram_wr_en, dado_in => dr_out, dado_out => ram_out);
+  memram : ram PORT MAP(clk => exe_clk, endereco => addr_ram_out(15 DOWNTO 0), wr_en => ram_wr_en, dado_in => dr_out, dado_out => ram_out);
 
   --DR
   dr_in <= ext_imm WHEN dr_ld = '1' ELSE

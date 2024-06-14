@@ -34,7 +34,7 @@ ghdl -a ../processador.vhd
 ghdl -e processador
 ghdl -a ../processador_tb.vhd
 ghdl -e processador_tb
-ghdl -r processador_tb --wave=tb.ghw
+ghdl -r processador_tb --wave=tb.ghw --disp-time
 
 
 echo "[Message] Top Level Built"

@@ -5,7 +5,7 @@ USE ieee.numeric_std.ALL;
 ENTITY ram IS
   PORT (
     clk : IN STD_LOGIC;
-    endereco : IN unsigned(6 DOWNTO 0);
+    endereco : IN unsigned(15 DOWNTO 0);
     wr_en : IN STD_LOGIC;
     dado_in : IN unsigned(15 DOWNTO 0);
     dado_out : OUT unsigned(15 DOWNTO 0)
@@ -20,9 +20,9 @@ BEGIN
   BEGIN
     IF rising_edge(clk) THEN
       IF wr_en = '1' THEN
-        conteudo_ram(to_integer(endereco)) <= dado_in;
+        conteudo_ram(to_integer(endereco(5 DOWNTO 0))) <= dado_in;
       END IF;
     END IF;
   END PROCESS;
-  dado_out <= conteudo_ram(to_integer(endereco));
+  dado_out <= conteudo_ram(to_integer(endereco(5 DOWNTO 0)));
 END ARCHITECTURE;
