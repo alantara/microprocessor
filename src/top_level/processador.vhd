@@ -49,7 +49,7 @@ ARCHITECTURE a_processador OF processador IS
   COMPONENT rom IS
     PORT (
       clk : IN STD_LOGIC;
-      address : IN unsigned(5 DOWNTO 0);
+      address : IN unsigned(6 DOWNTO 0);
       data : OUT unsigned(15 DOWNTO 0)
     );
   END COMPONENT;
@@ -94,7 +94,7 @@ ARCHITECTURE a_processador OF processador IS
   SIGNAL carry_flag, zero_flag, greater_flag : STD_LOGIC;
 
   --pc
-  SIGNAL pc_in, address : unsigned(5 DOWNTO 0);
+  SIGNAL pc_in, address : unsigned(15 DOWNTO 0);
 
   --rom
   SIGNAL instruction_fetch, instruction : unsigned(15 DOWNTO 0);
@@ -127,13 +127,13 @@ BEGIN
   greater : regb1 PORT MAP(clk => exe_clk, rst => greater_rst, wr_en => flags_wr_en, data_in => ula_greater, data_out => greater_flag);
 
   --PC
-  pc_in <= ext_imm(5 DOWNTO 0) WHEN jmp_en = '1' ELSE
-    address + ext_imm(5 DOWNTO 0) WHEN br_en = '1' ELSE
+  pc_in <= ext_imm WHEN jmp_en = '1' ELSE
+    address + ext_imm WHEN br_en = '1' ELSE
     address + 1;
-  pc : regb6 PORT MAP(clk => exe_clk, rst => rst, wr_en => '1', data_in => pc_in, data_out => address);
+  pc : regb16 PORT MAP(clk => exe_clk, rst => rst, wr_en => '1', data_in => pc_in, data_out => address);
 
   --ROM
-  mem : rom PORT MAP(clk => if_clk, address => address, data => instruction_fetch);
+  mem : rom PORT MAP(clk => if_clk, address => address(6 DOWNTO 0), data => instruction_fetch);
   memr : regb16 PORT MAP(clk => id_clk, rst => rst, wr_en => '1', data_in => instruction_fetch, data_out => instruction);
 
   opcode <= instruction(3 DOWNTO 0);

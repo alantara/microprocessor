@@ -4,19 +4,36 @@ Todas as instruções tem 16 bits
 
 ## Tipo R
 
-|xxxxxxxxx|xxx|xxxx|
+|xxxxxxxxx|rrr|oooo|
 
--   9 bits de imediato (usado apenas por algumas instruções)
--   3 bits para R (usado apenas por algumas instruções)
+-   9 bits sem uso
+-   3 bits para identificação
 -   4 bits para opcode
 
-### Exemplo de instrução tipo R
+## Tipo I
 
--   ADD R1
+|iiiiiiiii|xxx|oooo|
 
-Adiciona o valor do acumulador com o valor do registrador R e salva no acumulador
+-   9 bits para imediato
+-   3 bits sem uso
+-   4 bits para opcode
 
-A instrução seria decodificada para 0x0D14. Considerando a tabela de identificação de registradores ao final.
+## Tipo RI
+
+|iiiiiiiii|rrr|oooo|
+
+-   9 bits para imediato
+-   3 bits para identificação
+-   4 bits para opcode
+
+## Tipo D
+
+|xxxxxx|rrr|rrr|oooo|
+
+-   6 bits para imediato
+-   3 bits para identificação
+-   3 bits para identificação
+-   4 bits para opcode
 
 ## Instrução NOP
 
@@ -46,23 +63,31 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 | carry       | 001           |
 | greater     | 010           |
 
+# Tabela de identificação de branches de flags
+
+| Registrador | Decodificação |
+| ----------- | ------------- |
+| BEQ         | 000           |
+| BGT         | 010           |
+| BLT         | 101           |
+| BNE         | 111           |
+
 # Tabela de decodificação de instruções
 
-## Tipo R
-
-| Instrução | opcode |
-| --------- | ------ |
-| NOP       | 0000   |
-| JMP       | 0001   |
-| MOV R, A  | 0010   |
-| MOV A, R  | 0011   |
-| ADD       | 0100   |
-| SUB       | 0101   |
-| SUBB      | 0110   |
-| SW R, R   | 0111   |
-| LW D, R   | 1000   |
-| LU R, C   | 1001   |
-| JB F      | 1100   |
-| CLR F     | 1101   |
-| LD A, C   | 1110   |
-| LD R, C   | 1111   |
+| Instrução | opcode | Tipo |
+| --------- | ------ | ---- |
+| NOP       | 0000   | NOP  |
+| JMP I     | 0001   | I    |
+| MOV R, A  | 0010   | R    |
+| MOV A, R  | 0011   | R    |
+| ADD A, R  | 0100   | R    |
+| SUB A, R  | 0101   | R    |
+| SUBB A, R | 0110   | R    |
+| SW E, R   | 0111   | D    |
+| LW R, E   | 1000   | D    |
+| LU R, I   | 1001   | RI   |
+| CMP R, R  | 1010   | D    |
+| JB F      | 1100   | R    |
+| CLR F     | 1101   | R    |
+| LD A, I   | 1110   | I    |
+| LD R, I   | 1111   | RI   |
