@@ -4,10 +4,10 @@ USE ieee.numeric_std.ALL;
 
 ENTITY data_register IS
   PORT (
-    rs, rd : IN unsigned(2 DOWNTO 0);
+    rs1, rs2, rd : IN unsigned(2 DOWNTO 0);
     data_wr : IN unsigned(15 DOWNTO 0);
     clk, rst, wr_en : IN STD_LOGIC;
-    output : OUT unsigned(15 DOWNTO 0)
+    output1, output2 : OUT unsigned(15 DOWNTO 0)
   );
 END ENTITY;
 
@@ -50,14 +50,24 @@ BEGIN
   reg6 : regb16 PORT MAP(clk => clk, rst => rst, wr_en => wr_en6, data_in => data_wr, data_out => d6);
   reg7 : regb16 PORT MAP(clk => clk, rst => rst, wr_en => wr_en7, data_in => data_wr, data_out => d7);
 
-  output <= d0 WHEN rs = "000" ELSE
-    d1 WHEN rs = "001" ELSE
-    d2 WHEN rs = "010" ELSE
-    d3 WHEN rs = "011" ELSE
-    d4 WHEN rs = "100" ELSE
-    d5 WHEN rs = "101" ELSE
-    d6 WHEN rs = "110" ELSE
-    d7 WHEN rs = "111" ELSE
+  output1 <= d0 WHEN rs1 = "000" ELSE
+    d1 WHEN rs1 = "001" ELSE
+    d2 WHEN rs1 = "010" ELSE
+    d3 WHEN rs1 = "011" ELSE
+    d4 WHEN rs1 = "100" ELSE
+    d5 WHEN rs1 = "101" ELSE
+    d6 WHEN rs1 = "110" ELSE
+    d7 WHEN rs1 = "111" ELSE
+    "0000000000000000";
+
+  output2 <= d0 WHEN rs2 = "000" ELSE
+    d1 WHEN rs2 = "001" ELSE
+    d2 WHEN rs2 = "010" ELSE
+    d3 WHEN rs2 = "011" ELSE
+    d4 WHEN rs2 = "100" ELSE
+    d5 WHEN rs2 = "101" ELSE
+    d6 WHEN rs2 = "110" ELSE
+    d7 WHEN rs2 = "111" ELSE
     "0000000000000000";
 
 END ARCHITECTURE;

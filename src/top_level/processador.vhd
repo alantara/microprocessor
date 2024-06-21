@@ -17,7 +17,7 @@ ARCHITECTURE a_processador OF processador IS
       zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
       if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : OUT STD_LOGIC;
       zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
-      dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en : OUT STD_LOGIC;
+      dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d : OUT STD_LOGIC;
       ula_opcode : OUT unsigned(1 DOWNTO 0)
     );
   END COMPONENT;
@@ -56,10 +56,10 @@ ARCHITECTURE a_processador OF processador IS
 
   COMPONENT data_register IS
     PORT (
-      rs, rd : IN unsigned(2 DOWNTO 0);
+      rs1, rs2, rd : IN unsigned(2 DOWNTO 0);
       data_wr : IN unsigned(15 DOWNTO 0);
       clk, rst, wr_en : IN STD_LOGIC;
-      output : OUT unsigned(15 DOWNTO 0)
+      output1, output2 : OUT unsigned(15 DOWNTO 0)
     );
   END COMPONENT;
 
@@ -85,7 +85,7 @@ ARCHITECTURE a_processador OF processador IS
 
   --SIGNALS 
   --uc
-  SIGNAL if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : STD_LOGIC;
+  SIGNAL if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, ula_d : STD_LOGIC;
   SIGNAL zero_rst, carry_rst, greater_rst : STD_LOGIC;
   SIGNAL dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en : STD_LOGIC;
   SIGNAL ula_opcode : unsigned(1 DOWNTO 0);
@@ -109,18 +109,19 @@ ARCHITECTURE a_processador OF processador IS
   SIGNAL ram_out, addr_ram_out : unsigned (15 DOWNTO 0);
 
   --data register
-  SIGNAL dr_rs : unsigned(2 DOWNTO 0);
-  SIGNAL dr_in, dr_out : unsigned(15 DOWNTO 0);
+  SIGNAL dr_rs, dr_rs2 : unsigned(2 DOWNTO 0);
+  SIGNAL dr_in, dr_out, dr_out2 : unsigned(15 DOWNTO 0);
 
   --acc
   SIGNAL acc_in, acc_out : unsigned(15 DOWNTO 0);
 
   --ula
   SIGNAL ula_carry, ula_zero, ula_greater : STD_LOGIC;
+  SIGNAL ula_in2 : unsigned(15 DOWNTO 0);
   SIGNAL ula_out : unsigned(15 DOWNTO 0);
 
 BEGIN
-  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_opcode);
+  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d, ula_opcode);
 
   carry : regb1 PORT MAP(clk => exe_clk, rst => carry_rst, wr_en => flags_wr_en, data_in => ula_carry, data_out => carry_flag);
   zero : regb1 PORT MAP(clk => exe_clk, rst => zero_rst, wr_en => flags_wr_en, data_in => ula_zero, data_out => zero_flag);
@@ -156,7 +157,8 @@ BEGIN
     "0000000000000000";
   dr_rs <= r2 WHEN dr_ram = '1' ELSE
     r;
-  dr : data_register PORT MAP(rs => dr_rs, rd => r, data_wr => dr_in, clk => exe_clk, rst => rst, wr_en => dr_wr_en, output => dr_out);
+  dr_rs2 <= r2;
+  dr : data_register PORT MAP(rs1 => dr_rs, rs2 => dr_rs2, rd => r, data_wr => dr_in, clk => exe_clk, rst => rst, wr_en => dr_wr_en, output1 => dr_out, output2 => dr_out2);
 
   --ACC
   acc_in <= ext_imm WHEN acc_ld = '1' ELSE
@@ -165,6 +167,8 @@ BEGIN
   acc : regb16 PORT MAP(clk => exe_clk, rst => rst, wr_en => acc_wr_en, data_in => acc_in, data_out => acc_out);
 
   --ULA
-  ul : ula PORT MAP(a => dr_out, b => acc_out, borrow => carry_flag, opcode => ula_opcode, carry_flag => ula_carry, zero_flag => ula_zero, greater_flag => ula_greater, output => ula_out);
+  ula_in2 <= dr_out2 WHEN ula_d = '1' ELSE
+    acc_out;
+  ul : ula PORT MAP(a => dr_out, b => ula_in2, borrow => carry_flag, opcode => ula_opcode, carry_flag => ula_carry, zero_flag => ula_zero, greater_flag => ula_greater, output => ula_out);
 
 END ARCHITECTURE;

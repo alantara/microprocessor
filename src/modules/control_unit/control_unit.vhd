@@ -9,7 +9,7 @@ ENTITY control_unit IS
     zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
     if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : OUT STD_LOGIC;
     zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
-    dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en : OUT STD_LOGIC;
+    dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d : OUT STD_LOGIC;
     ula_opcode : OUT unsigned(1 DOWNTO 0)
   );
 END ENTITY;
@@ -57,6 +57,7 @@ BEGIN
   flags_wr_en <= '1' WHEN opcode = "0100" ELSE
     '1' WHEN opcode = "0101" ELSE
     '1' WHEN opcode = "0110" ELSE
+    '1' WHEN opcode = "1010" ELSE
     '0';
   ram_wr_en <= '1' WHEN opcode = "0111" ELSE
     '0';
@@ -93,10 +94,13 @@ BEGIN
     '1' WHEN opcode = "1100" AND r = "101" AND zero_flag = '0' AND greater_flag = '0' ELSE
     '1' WHEN opcode = "1100" AND r = "010" AND greater_flag = '1' ELSE
     '0';
+  ula_d <= '1' WHEN opcode = "1010" ELSE
+    '0';
 
   ula_opcode <= "00" WHEN opcode = "0100" ELSE
     "01" WHEN opcode = "0101" ELSE
     "10" WHEN opcode = "0110" ELSE
+    "01" WHEN opcode = "1010" ELSE
     "00";
 
 END ARCHITECTURE;

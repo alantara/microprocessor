@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Tue Jun 18 19:37:31 2024
+[*] Fri Jun 21 19:23:52 2024
 [*]
 [dumpfile] "/home/alan/Github/microprocessor/src/top_level/build/tb.ghw"
-[dumpfile_mtime] "Tue Jun 18 19:33:36 2024"
-[dumpfile_size] 199557140
+[dumpfile_mtime] "Fri Jun 21 19:23:43 2024"
+[dumpfile_size] 627668
 [savefile] "/home/alan/Github/microprocessor/src/top_level/build/tb.gtkw"
-[timestart] 61228720000000
+[timestart] 0
 [size] 1850 1016
 [pos] -1 -1
-*-33.726685 61283940000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.726685 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.processador_tb.
 [treeopen] top.processador_tb.uut.
@@ -69,5 +69,9 @@ top.processador_tb.uut.dr.d7[0]
 #{top.processador_tb.uut.dr.d6[15:0]} top.processador_tb.uut.dr.d6[15] top.processador_tb.uut.dr.d6[14] top.processador_tb.uut.dr.d6[13] top.processador_tb.uut.dr.d6[12] top.processador_tb.uut.dr.d6[11] top.processador_tb.uut.dr.d6[10] top.processador_tb.uut.dr.d6[9] top.processador_tb.uut.dr.d6[8] top.processador_tb.uut.dr.d6[7] top.processador_tb.uut.dr.d6[6] top.processador_tb.uut.dr.d6[5] top.processador_tb.uut.dr.d6[4] top.processador_tb.uut.dr.d6[3] top.processador_tb.uut.dr.d6[2] top.processador_tb.uut.dr.d6[1] top.processador_tb.uut.dr.d6[0]
 @22
 #{top.processador_tb.uut.dr.d7[15:0]} top.processador_tb.uut.dr.d7[15] top.processador_tb.uut.dr.d7[14] top.processador_tb.uut.dr.d7[13] top.processador_tb.uut.dr.d7[12] top.processador_tb.uut.dr.d7[11] top.processador_tb.uut.dr.d7[10] top.processador_tb.uut.dr.d7[9] top.processador_tb.uut.dr.d7[8] top.processador_tb.uut.dr.d7[7] top.processador_tb.uut.dr.d7[6] top.processador_tb.uut.dr.d7[5] top.processador_tb.uut.dr.d7[4] top.processador_tb.uut.dr.d7[3] top.processador_tb.uut.dr.d7[2] top.processador_tb.uut.dr.d7[1] top.processador_tb.uut.dr.d7[0]
+@28
+top.processador_tb.uut.greater.data
+top.processador_tb.uut.zero.data
+top.processador_tb.uut.carry.data
 [pattern_trace] 1
 [pattern_trace] 0

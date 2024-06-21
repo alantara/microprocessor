@@ -30,7 +30,7 @@ Todas as instruções tem 16 bits
 
 |xxxxxx|rrr|rrr|oooo|
 
--   6 bits para imediato
+-   6 bits para sem uso
 -   3 bits para identificação
 -   3 bits para identificação
 -   4 bits para opcode
