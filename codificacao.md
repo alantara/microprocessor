@@ -85,9 +85,9 @@ OBS: o registrador zero não pode ser sobrescrito, terá sempre valor 0.
 | SUBB A, R | 0110   | R    |
 | SW E, R   | 0111   | D    |
 | LW R, E   | 1000   | D    |
-| LU R, I   | 1001   | RI   |
+| ADDI R, I | 1001   | RI   |
 | CMP R, R  | 1010   | D    |
 | JB F      | 1100   | R    |
-| CLR F     | 1101   | R    |
+| SUBI R, I | 1101   | RI   |
 | LD A, I   | 1110   | I    |
 | LD R, I   | 1111   | RI   |

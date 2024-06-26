@@ -17,7 +17,7 @@ ARCHITECTURE a_processador OF processador IS
       zero_flag, carry_flag, greater_flag : IN STD_LOGIC;
       if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : OUT STD_LOGIC;
       zero_rst, carry_rst, greater_rst : OUT STD_LOGIC;
-      dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d : OUT STD_LOGIC;
+      dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d, ula_i : OUT STD_LOGIC;
       ula_opcode : OUT unsigned(1 DOWNTO 0)
     );
   END COMPONENT;
@@ -85,9 +85,9 @@ ARCHITECTURE a_processador OF processador IS
 
   --SIGNALS 
   --uc
-  SIGNAL if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, ula_d : STD_LOGIC;
+  SIGNAL if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en : STD_LOGIC;
   SIGNAL zero_rst, carry_rst, greater_rst : STD_LOGIC;
-  SIGNAL dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en : STD_LOGIC;
+  SIGNAL dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d, ula_i : STD_LOGIC;
   SIGNAL ula_opcode : unsigned(1 DOWNTO 0);
 
   --flags
@@ -121,7 +121,7 @@ ARCHITECTURE a_processador OF processador IS
   SIGNAL ula_out : unsigned(15 DOWNTO 0);
 
 BEGIN
-  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d, ula_opcode);
+  uc : control_unit PORT MAP(clk, rst, instruction, zero_flag, carry_flag, greater_flag, if_clk, id_clk, preexe_clk, exe_clk, dr_wr_en, acc_wr_en, flags_wr_en, ram_wr_en, addr_ram_wr_en, zero_rst, carry_rst, greater_rst, dr_ld, dr_mv, dr_lw, dr_ram, acc_ld, acc_mv, lu_en, jmp_en, br_en, ula_d, ula_i, ula_opcode);
 
   carry : regb1 PORT MAP(clk => exe_clk, rst => carry_rst, wr_en => flags_wr_en, data_in => ula_carry, data_out => carry_flag);
   zero : regb1 PORT MAP(clk => exe_clk, rst => zero_rst, wr_en => flags_wr_en, data_in => ula_zero, data_out => zero_flag);
@@ -168,6 +168,7 @@ BEGIN
 
   --ULA
   ula_in2 <= dr_out2 WHEN ula_d = '1' ELSE
+    ext_imm WHEN ula_i = '1' ELSE
     acc_out;
   ul : ula PORT MAP(a => dr_out, b => ula_in2, borrow => carry_flag, opcode => ula_opcode, carry_flag => ula_carry, zero_flag => ula_zero, greater_flag => ula_greater, output => ula_out);
 
